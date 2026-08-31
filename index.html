@@ -188,6 +188,9 @@
 <button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-modification" style="text-align: left;">
     이용설정 수정
 </button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-reapproval" style="text-align: left;">
+    이용설정 재승인
+</button>
 </div>
 </div>
 <!-- 4. 자산 연결 -->
@@ -225,7 +228,22 @@
 </button>
 </div>
 </div>
-<!-- 5. FAQ -->
+<!-- 5. 내 정보 -->
+<div class="space-y-1">
+<button class="category-toggle w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider hover:text-slate-600 flex items-center justify-between">
+<span>5. 내 정보</span>
+<i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="category-items pl-3 space-y-0.5 border-l border-slate-100 ml-3">
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-account-history" style="text-align: left;">
+    접속이력
+</button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-account-withdrawal" style="text-align: left;">
+    회원탈퇴
+</button>
+</div>
+</div>
+<!-- 6. FAQ -->
 <button class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all flex items-center gap-2.5" data-target="tab-faq">
 <i class="fa-regular fa-circle-question text-slate-400"></i> 자주 묻는 질문
             </button>
@@ -783,6 +801,59 @@
 <p><i class="fa-solid fa-shield-halved text-brand-indigo mr-2"></i><strong>광고주·대행사 기본 정보 변경:</strong> 기본 정보 수정 시 영업 담당자가 검토 후 반영됩니다. 승인 결과는 등록된 업무용 이메일로 안내됩니다.</p>
 <p><i class="fa-solid fa-ban text-brand-indigo mr-2"></i><strong>광고주·대행사 솔루션/광고주 정보 변경:</strong> 솔루션 정보 및 광고주 정보 수정은 불가합니다. 수정이 필요하실 경우 영업 담당자에게 문의해주세요.</p>
 <p><i class="fa-solid fa-lock text-brand-indigo mr-2"></i><strong>수정 불가 항목:</strong> 가입 시 선택한 사용자 유형과 인증 완료된 사내 이메일은 수정할 수 없습니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 이용설정 재승인] ================= -->
+<div class="tab-content hidden" id="tab-setup-reapproval">
+<div class="space-y-8">
+<div class="space-y-3 border-b border-slate-100 pb-4">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">이용설정 재승인</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">광고주·대행사가 제출한 이용설정 정보와 현재 소속 정보가 유효한지 영업 담당자가 <strong>6개월</strong>마다 재검토합니다. 소속 정보가 유효하지 않은 사용자가 기존 회사의 자산과 연동 솔루션을 계속 이용하는 것을 방지하기 위한 절차입니다.</p>
+</div>
+
+<section class="space-y-4">
+<div class="p-4 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 leading-relaxed">
+<p><i class="fa-solid fa-circle-info text-brand-indigo mr-2"></i><strong>대상:</strong> 광고주·대행사 사용자에게 적용되며, 임직원은 해당하지 않습니다. 마지막 이용설정 승인일로부터 <strong>6개월</strong>마다 재승인이 진행됩니다.</p>
+</div>
+
+<div class="flex items-center gap-2 mb-3 mt-8">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">재승인 대상이 되면</span>
+</div>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• 재승인 시점이 되면 <strong>알림과 안내 메일</strong>을 받게 됩니다.</p>
+<p>• 영업 담당자가 소속 정보를 확인하는 동안 <strong>연동 솔루션 이용이 일시 중지</strong>됩니다.</p>
+<p>• ADLY 로그인과 내 정보·이용설정 조회는 계속 가능합니다.</p>
+</div>
+
+<div class="flex items-center gap-2 mb-3 mt-8">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">재승인 결과에 따라</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-1">
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-2">
+<p class="font-bold text-emerald-600"><i class="fa-solid fa-circle-check mr-1"></i> 승인된 경우</p>
+<div class="text-sm text-slate-600 leading-relaxed space-y-1">
+<p>• 소속 정보가 유효한 것으로 확인되어 <strong>기존과 동일하게 이용</strong>할 수 있습니다.</p>
+<p>• 연동 솔루션 이용이 복구되며, 다음 재승인까지 다시 6개월간 이용할 수 있습니다.</p>
+</div>
+</div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-2">
+<p class="font-bold text-red-500"><i class="fa-solid fa-circle-xmark mr-1"></i> 반려된 경우</p>
+<div class="text-sm text-slate-600 leading-relaxed space-y-1">
+<p>• 소속 법인 변경 등이 확인되면 반려되며, 연동 솔루션 이용 중지가 유지됩니다.</p>
+<p>• <strong>이용설정을 다시 제출</strong>하여 승인 절차를 진행하거나, <strong>회원탈퇴</strong> 후 새로운 소속 정보로 재가입할 수 있습니다.</p>
+</div>
+</div>
+</div>
+
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 참고</p>
+<p>• <strong>영업 담당자만 변경</strong>된 경우에는 소속이 유지되므로 이용설정에서 영업 담당자 정보만 변경하면 됩니다.</p>
+<p>• <strong>퇴사·이직 등으로 실제 소속 회사가 변경</strong>된 경우에는 회원탈퇴 후 새로운 소속 정보로 재가입해 주세요.</p>
 </div>
 </section>
 </div>
@@ -1575,9 +1646,84 @@
 </div>
 </div>
 
+<!-- ================= [TAB: 접속 이력] ================= -->
+<div class="tab-content hidden" id="tab-account-history">
+<div class="space-y-8">
+<div class="space-y-3 border-b border-slate-100 pb-4">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">접속이력</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">계정 보안을 위해 내 계정의 로그인 기록을 직접 확인할 수 있습니다. 평소와 다른 접속이 확인되면 관리자에게 문의해 주세요.</p>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-3 mt-2">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">확인 방법</span>
+</div>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• ADLY 우측 상단 프로필 메뉴에서 <strong>[내 정보]</strong>로 이동합니다.</p>
+<p>• <strong>[접속 이력]</strong> 영역에서 최근 로그인 일시와 접속 IP를 확인합니다.</p>
+<p>• 최신 접속 기록부터 순서대로 표시됩니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 참고</p>
+<p>• 접속 이력(로그인 기록)은 관련 법령에 따라 일정 기간 보관 후 파기됩니다.</p>
+<p>• 본인이 접속한 기억이 없는 로그인 기록이 있다면 즉시 관리자에게 문의해 주세요.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 회원탈퇴] ================= -->
+<div class="tab-content hidden" id="tab-account-withdrawal">
+<div class="space-y-8">
+<div class="space-y-3 border-b border-slate-100 pb-4">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">회원탈퇴</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">회원탈퇴는 사용자 본인의 신청으로만 진행됩니다. 탈퇴 시 즉시 로그아웃되며 ADLY 및 연동 솔루션 이용 권한이 종료됩니다.</p>
+</div>
+
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-3 mt-2">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">탈퇴 방법</span>
+</div>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• ADLY 우측 상단 프로필 메뉴에서 <strong>[내 정보]</strong>로 이동합니다.</p>
+<p>• <strong>[내 정보 &gt; 회원탈퇴]</strong>에서 <strong>[회원탈퇴]</strong> 버튼을 선택합니다.</p>
+<p>• 회원탈퇴 안내 팝업의 내용을 확인한 뒤 <strong>[탈퇴하기]</strong>를 선택하면 즉시 탈퇴 처리되고 로그인 페이지로 이동합니다.</p>
+</div>
+
+<div class="flex items-center gap-2 mb-3 mt-8">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">탈퇴 시 안내 사항</span>
+</div>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• 탈퇴 즉시 로그아웃되며, ADLY 및 연동 솔루션의 이용 권한이 종료됩니다.</p>
+<p>• 처리 중인 자산요청이 있는 경우 자동 반려됩니다.</p>
+<p>• 하위 솔루션에서 생성한 작업물은 특정 개인을 식별할 수 없도록 익명화 처리한 후 서비스 개선 등의 목적으로 보유·활용될 수 있습니다.</p>
+<p>• 회원정보는 개인정보처리방침에 따라 파기되며, 보관이 필요한 일부 기록은 정해진 기간 동안 보관 후 파기됩니다.</p>
+</div>
+
+<div class="flex items-center gap-2 mb-3 mt-8">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">재가입 안내</span>
+</div>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• 탈퇴 후 동일한 Google 계정으로 <strong>즉시 재가입</strong>할 수 있으며, 별도의 재가입 제한 기간은 없습니다.</p>
+<p>• 재가입 시 <strong>신규 회원</strong>으로 처리되며, 이용설정을 다시 등록하고 승인 절차를 거쳐야 합니다.</p>
+<p>• 기존 회원정보, 이용설정, 솔루션 권한, 광고주·자산 접근 관계는 <strong>자동으로 복구되지 않습니다.</strong> 동일한 Google 계정으로 재가입하더라도 이전 권한과 데이터는 복구되지 않습니다.</p>
+</div>
+
+<div class="p-5 bg-amber-50 rounded-xl border-l-4 border-amber-400 text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-amber-700"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 탈퇴가 제한되는 경우</p>
+<p>• 담당하는 광고주·대행사가 있는 <strong>영업 담당자(Sales Manager)</strong>는 바로 탈퇴할 수 없습니다. 어드민에서 다른 영업 담당자로 담당 관계를 이관한 후 탈퇴할 수 있습니다.</p>
+<p>• 계정이 <strong>정지</strong> 상태인 경우 로그인이 제한되어 탈퇴 화면에 접근할 수 없습니다.</p>
+</div>
+</section>
+</div>
+</div>
+
 <!-- ================= [TAB: 자주 묻는 질문] ================= -->
 <div class="tab-content hidden" id="tab-faq">
-<div class="space-y-8"><div class="space-y-3"><h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">자주 묻는 질문</h1><p class="text-slate-600 leading-relaxed text-[15px]">ADLY 이용 중 자주 발생하는 질문과 확인 사항입니다.</p></div><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">로그인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>회원가입은 따로 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>아니요. ADLY는 별도의 회원가입 절차 없이 Google 로그인 시 계정이 생성됩니다.</p><p>최초 로그인 후 이용설정을 완료하면 서비스를 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Google 계정이 여러 개인데 ADLY 계정은 어떻게 생성되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>ADLY는 Google 로그인 기반으로 계정이 생성됩니다.</p><p>Google 계정마다 각각 별도의 ADLY 계정이 생성됩니다.</p><p>예를 들어 Google 계정 A로 로그인하면 ADLY 계정 A가 생성되고, Google 계정 B로 로그인하면 ADLY 계정 B가 생성됩니다.</p><p>서비스 이용 시에는 기존에 이용하던 동일한 Google 계정으로 로그인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인 후 일정 시간 동안 사용하지 않으면 어떻게 되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>보안을 위해 30분 동안 이용 활동이 없으면 자동으로 로그아웃됩니다.</p><p>자동 로그아웃된 경우 다시 Google 로그인을 진행하면 서비스를 계속 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인은 되는데 솔루션을 사용할 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 이용설정을 완료했는지 확인합니다.</p><p>• 운영자 승인이 완료되었는지 확인합니다.</p><p>• 승인 완료 후 ADLY 메인 화면에서 솔루션을 선택하여 이용합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">이용설정</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 꼭 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>네. 이용설정을 완료해야 ADLY 솔루션을 사용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 수정하면 바로 반영되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>임직원 정보는 저장 즉시 반영됩니다.</p><p>광고주와 대행사 정보는 운영자 승인 후 반영됩니다.</p><p>승인 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정 수정 후 솔루션이 바로 반영되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>솔루션 정보는 반영까지 최대 15분 정도 소요될 수 있습니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">임직원 인증</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>사내 이메일 인증이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 재직 중인 임직원인지 확인합니다.</p><p>• MTS에 등록된 사내 이메일인지 확인합니다.</p><p>• @cj.net 형식의 이메일인지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>인증번호 메일이 오지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>스팸함을 확인하거나 인증번호를 다시 발송합니다.</p><p>지속적으로 수신되지 않는 경우 관리자에게 문의합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">광고주</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>등록하려는 광고주가 검색되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>검색 결과에 없는 경우 <strong>[신규 광고주 등록 요청]</strong>을 통해 신청합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>광고주를 등록했는데 바로 데이터를 볼 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>광고주 등록은 해당 광고주에 대한 관리 권한을 설정하는 절차입니다.</p><p>광고 집행 데이터 조회를 위해서는 별도의 자산 연결이 필요합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">자산 연결</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결은 언제 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영·인사이트 그룹 솔루션을 사용하는 경우 자산 연결이 필요합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결 대상 브랜드가 조회되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>신규 브랜드 등록 요청을 진행합니다.</p><p>브랜드가 DSS에 등록된 이후 자산 연결을 진행할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>관리 권한이 부여되어 있는지 확인합니다.</p><p>광고계정이 대표 계정 또는 수집 계정에 연결되어 있는지 확인합니다.</p><p>필요한 광고계정 ID 또는 자산고유값을 정확히 입력했는지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이미 연결되어 있다고 나옵니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>해당 자산이 다른 브랜드에 이미 연결된 경우입니다.</p><p>운영자에게 문의하여 연결 상태를 확인합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">솔루션 / 승인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Intella 대시보드가 조회되지 않아요.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>브랜드 권한이 없거나, 광고주·대행사 사용자의 경우 게시 기간이 지난 대시보드는 조회되지 않습니다.</p><p>읽기 권한 이외의 권한이 필요하면 관리자에게 문의해 주세요.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>일부 솔루션이 비활성화되어 있습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>오픈 전 솔루션이거나 현재 사용자에게 이용 권한이 없는 솔루션일 수 있습니다.</p><p>이용설정 및 승인 상태를 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인 결과는 어디서 확인하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>승인 또는 반려 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인까지 얼마나 걸리나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영자의 검토 후 승인됩니다.</p><p>처리 시간은 운영 일정에 따라 달라질 수 있습니다.</p></div></details></section></div></div>
+<div class="space-y-8"><div class="space-y-3"><h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">자주 묻는 질문</h1><p class="text-slate-600 leading-relaxed text-[15px]">ADLY 이용 중 자주 발생하는 질문과 확인 사항입니다.</p></div><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">로그인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>회원가입은 따로 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>아니요. ADLY는 별도의 회원가입 절차 없이 Google 로그인 시 계정이 생성됩니다.</p><p>최초 로그인 후 이용설정을 완료하면 서비스를 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Google 계정이 여러 개인데 ADLY 계정은 어떻게 생성되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>ADLY는 Google 로그인 기반으로 계정이 생성됩니다.</p><p>Google 계정마다 각각 별도의 ADLY 계정이 생성됩니다.</p><p>예를 들어 Google 계정 A로 로그인하면 ADLY 계정 A가 생성되고, Google 계정 B로 로그인하면 ADLY 계정 B가 생성됩니다.</p><p>서비스 이용 시에는 기존에 이용하던 동일한 Google 계정으로 로그인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인 후 일정 시간 동안 사용하지 않으면 어떻게 되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>보안을 위해 30분 동안 이용 활동이 없으면 자동으로 로그아웃됩니다.</p><p>자동 로그아웃된 경우 다시 Google 로그인을 진행하면 서비스를 계속 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인은 되는데 솔루션을 사용할 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 이용설정을 완료했는지 확인합니다.</p><p>• 운영자 승인이 완료되었는지 확인합니다.</p><p>• 승인 완료 후 ADLY 메인 화면에서 솔루션을 선택하여 이용합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">이용설정</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 꼭 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>네. 이용설정을 완료해야 ADLY 솔루션을 사용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 수정하면 바로 반영되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>임직원 정보는 저장 즉시 반영됩니다.</p><p>광고주와 대행사 정보는 운영자 승인 후 반영됩니다.</p><p>승인 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정 수정 후 솔루션이 바로 반영되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>솔루션 정보는 반영까지 최대 15분 정도 소요될 수 있습니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">임직원 인증</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>사내 이메일 인증이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 재직 중인 임직원인지 확인합니다.</p><p>• MTS에 등록된 사내 이메일인지 확인합니다.</p><p>• @cj.net 형식의 이메일인지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>인증번호 메일이 오지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>스팸함을 확인하거나 인증번호를 다시 발송합니다.</p><p>지속적으로 수신되지 않는 경우 관리자에게 문의합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">광고주</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>등록하려는 광고주가 검색되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>검색 결과에 없는 경우 <strong>[신규 광고주 등록 요청]</strong>을 통해 신청합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>광고주를 등록했는데 바로 데이터를 볼 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>광고주 등록은 해당 광고주에 대한 관리 권한을 설정하는 절차입니다.</p><p>광고 집행 데이터 조회를 위해서는 별도의 자산 연결이 필요합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">자산 연결</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결은 언제 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영·인사이트 그룹 솔루션을 사용하는 경우 자산 연결이 필요합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결 대상 브랜드가 조회되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>신규 브랜드 등록 요청을 진행합니다.</p><p>브랜드가 DSS에 등록된 이후 자산 연결을 진행할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>관리 권한이 부여되어 있는지 확인합니다.</p><p>광고계정이 대표 계정 또는 수집 계정에 연결되어 있는지 확인합니다.</p><p>필요한 광고계정 ID 또는 자산고유값을 정확히 입력했는지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이미 연결되어 있다고 나옵니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>해당 자산이 다른 브랜드에 이미 연결된 경우입니다.</p><p>운영자에게 문의하여 연결 상태를 확인합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">솔루션 / 승인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Intella 대시보드가 조회되지 않아요.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>브랜드 권한이 없거나, 광고주·대행사 사용자의 경우 게시 기간이 지난 대시보드는 조회되지 않습니다.</p><p>읽기 권한 이외의 권한이 필요하면 관리자에게 문의해 주세요.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>일부 솔루션이 비활성화되어 있습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>오픈 전 솔루션이거나 현재 사용자에게 이용 권한이 없는 솔루션일 수 있습니다.</p><p>이용설정 및 승인 상태를 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인 결과는 어디서 확인하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>승인 또는 반려 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인까지 얼마나 걸리나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영자의 검토 후 승인됩니다.</p><p>처리 시간은 운영 일정에 따라 달라질 수 있습니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">회원탈퇴</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>탈퇴하면 바로 처리되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>네. 별도의 승인 절차 없이 즉시 처리되며, 탈퇴와 동시에 로그아웃됩니다.</p><p>탈퇴 후에는 ADLY 및 연동 솔루션의 이용 권한이 종료됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>탈퇴 후 다시 가입할 수 있나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>동일한 Google 계정으로 즉시 재가입할 수 있으며, 별도의 재가입 제한 기간은 없습니다.</p><p>다만 재가입 시 신규 회원으로 처리되며, 기존 회원정보와 이용설정, 솔루션 권한 등은 복구되지 않습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>탈퇴가 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>담당하는 광고주·대행사가 있는 영업 담당자는 바로 탈퇴할 수 없습니다. 어드민에서 다른 영업 담당자로 담당 관계를 이관한 후 탈퇴할 수 있습니다.</p><p>계정이 정지 상태인 경우 로그인이 제한되어 탈퇴 화면에 접근할 수 없습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>처리 중인 자산요청이 있는데 탈퇴해도 되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>탈퇴할 수 있습니다. 처리 중인 자산요청이 있는 경우 탈퇴와 함께 자동으로 반려 처리됩니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">이용설정 재승인(외부 클라이언트 대상)</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용하던 솔루션이 갑자기 중지되었습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>6개월마다 진행되는 이용설정 재승인 대상이 되어 일시 중지된 것일 수 있습니다.</p><p>영업 담당자가 소속 정보를 확인해 승인하면 연동 솔루션 이용이 다시 복구됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정 재승인은 얼마나 자주 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>광고주·대행사 사용자는 마지막 이용설정 승인일로부터 6개월마다 재승인이 진행됩니다.</p><p>임직원은 해당하지 않습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>재승인이 반려되면 어떻게 되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>연동 솔루션 이용 중지가 유지됩니다.</p><p>이용설정 정보를 다시 제출하여 승인 절차를 진행하거나, 회원탈퇴 후 새로운 소속 정보로 재가입할 수 있습니다.</p></div></details></section></div></div>
 </div>
 </main>
 </div>
