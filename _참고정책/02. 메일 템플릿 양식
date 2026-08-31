@@ -1,0 +1,418 @@
+1. 목적
+통합 ADLY 서비스에서 사용자 상태 변화, 이용 신청, 자산 요청 등 주요 이벤트 발생 시 사용자에게 발송되는 메일을 템플릿 형태로 관리하기 위함이다.
+메일 템플릿은 어드민에서 등록/수정 가능하며 동일 유형의 메일은 공통 템플릿을 사용한다.
+
+2. 템플릿 유형 목록
+코드 규칙
+
+사용자 수신 템플릿 코드: USER_ 접두사
+
+운영자 수신 템플릿 코드: ADMIN_ 접두사
+
+요청 이벤트 접미사
+
+_ADD : 추가 요청
+
+_REMOVE : 해제 요청
+
+_UPDATE : 수정 요청
+
+1	USER_SIGNUP	가입 완료	사용자	임직원, 광고주, 대행사	사용	Phase1
+2	USER_APPROVAL	승인 완료	사용자	임직원, 광고주, 대행사	사용	Phase1
+3	USER_REJECTION	반려	사용자	임직원, 광고주, 대행사	사용	Phase1
+4	USER_SUSPENSION	정지	사용자	임직원, 광고주, 대행사	사용	Phase1
+5	USER_PERMISSION	솔루션 권한 부여	사용자	임직원, 광고주, 대행사	사용	Phase1
+6	USER_SETTINGS	ADLY 이용설정 완료	사용자	광고주, 대행사	사용	Phase1
+7	USER_TERMS	서비스 이용약관 변경 공지	사용자	임직원, 광고주, 대행사	사용	Phase1
+8	USER_PRIVACY	개인정보 처리방침 변경	사용자	임직원, 광고주, 대행사	사용	Phase1
+9	USER_INTERNAL_EMAIL_VERIFY	사내 이메일 인증	사용자	임직원	사용	Phase2
+10	ADMIN_SALES_INFO	담당 영업자 정보 수정 요청 알림	운영자	-	사용	Phase2
+11	ADMIN_ADVERTISER_ADD	광고주 추가 요청 알림	운영자	-	사용	Phase2
+12	ADMIN_ADVERTISER_REMOVE	광고주 연결 해제 요청 알림	운영자	-	사용	Phase2
+13	ADMIN_SOLUTION_ADD	솔루션 권한 추가 요청 알림	운영자	-	사용	Phase2
+14	ADMIN_SOLUTION_REMOVE	솔루션 권한 해제 요청 알림	운영자	-	사용	Phase2
+15	ADMIN_ASSET_ADD	자산 연결 요청 알림	운영자	-	사용	Phase1
+16	ADMIN_SETTINGS	ADLY 이용설정 완료	운영자	
+사용	Phase1
+17	ADMIN_ASSET_COMMENT	자산요청 댓글 알림	사용자	임직원, 광고주, 대행사	사용	
+18	ADMIN_ASSET_STATUS	자산요청 상태 변경 알림	사용자	임직원, 광고주, 대행사	사용	Phase1
+19	USER_ASSET_COMMENT	자산요청 사용자 댓글 알림	운영자	-	사용	
+20	USER_BRAND_REQUEST	신규 브랜드 등록 요청 알림	운영자	-	사용	Phase1
+21	
+
+
+
+
+
+3. 템플릿 상세
+가입 완료 (USER_SIGNUP)
+템플릿 코드	USER_SIGNUP
+유형명	가입 완료
+수신 대상	사용자
+사용자 유형	임직원, 광고주, 대행사
+발송 시점	사용자가 ADLY 회원가입을 완료한 시점
+기본 메일 제목	ADLY 가입이 완료되었습니다
+치환변수	{{user_name}}, {{email}}, {{signup_date}}
+본문	
+안녕하세요, {{user_name}}님ADLY 가입이 완료되었습니다.
+
+가입 정보:
+- 이메일: {{email}}
+- 가입일시: {{signup_date}}운영자의 승인 후 서비스를 이용하실 수 있습니다.
+
+승인 완료 시 별도 안내 메일을 발송해드립니다. 감사합니다.
+ADLY 운영팀
+
+
+
+2. 승인 완료 (USER_APPROVAL)
+
+템플릿 코드	USER_APPROVAL
+유형명	승인 완료
+수신 대상	사용자
+사용자 유형	임직원, 광고주, 대행사
+발송 시점	운영자가 사용자의 가입 신청을 승인한 시점
+기본 메일 제목	ADLY 가입 승인이 완료되었습니다
+치환변수	{{user_name}}, {{email}}, {{approval_date}}, {{user_type}}
+본문	
+안녕하세요, {{user_name}}님ADLY 가입 승인이 완료되었습니다.
+
+승인 정보:
+- 이메일: {{email}}
+- 승인일시: {{approval_date}}
+- 사용자 유형: {{user_type}}이제 ADLY의 모든 서비스를 이용하실 수 있습니다.
+
+로그인 후 다양한 솔루션을 경험해보세요. 감사합니다.
+ADLY 운영팀
+
+
+
+3. 반려 (USER_REJECTION)
+
+템플릿 코드	USER_REJECTION
+유형명	반려
+수신 대상	사용자
+사용자 유형	임직원, 광고주, 대행사
+발송 시점	운영자가 사용자의 가입 신청을 반려한 시점
+기본 메일 제목	ADLY 가입이 반려되었습니다
+치환변수	{{user_name}}, {{email}}, {{rejection_date}}, {{rejection_reason}}
+본문	
+안녕하세요, {{user_name}}님ADLY 가입 신청이 반려되었습니다.
+
+반려 정보:
+- 이메일: {{email}}
+- 반려일시: {{rejection_date}}
+- 반려 사유: {{rejection_reason}}
+
+추가 문의사항이 있으시면 고객센터로 연락 주시기 바랍니다. 감사합니다.
+ADLY 운영팀
+
+
+
+4. 계정 정지 (USER_SUSPENSION)
+
+템플릿 코드	USER_SUSPENSION
+유형명	정지
+수신 대상	사용자
+사용자 유형	임직원, 광고주, 대행사
+발송 시점	운영자가 사용자 계정을 정지 처리한 시점
+기본 메일 제목	ADLY 계정이 정지되었습니다
+치환변수	{{user_name}}, {{email}}, {{suspension_date}}, {{suspension_reason}}
+본문	
+안녕하세요, {{user_name}}님귀하의 ADLY 계정이 정지되었습니다.
+
+정지 정보:
+- 이메일: {{email}}
+- 정지일시: {{suspension_date}}
+- 정지 사유: {{suspension_reason}}계정 정지 기간 동안 ADLY 서비스 이용이 제한됩니다.
+
+문의사항이 있으시면 고객센터로 연락 주시기 바랍니다. 감사합니다.
+ADLY 운영팀
+
+
+
+5. 솔루션 권한 부여 (USER_PERMISSION)
+
+템플릿 코드	USER_PERMISSION
+유형명	솔루션 권한 부여
+수신 대상	사용자
+사용자 유형	임직원, 광고주, 대행사
+발송 시점	운영자가 사용자에게 솔루션 권한을 부여한 시점
+기본 메일 제목	ADLY 솔루션 권한이 부여되었습니다
+치환변수	{{user_name}}, {{email}}, {{grant_date}}, {{solution_name}}
+본문	
+안녕하세요, {{user_name}}님새로운 솔루션 권한이 부여되었습니다.
+
+권한 정보:
+- 부여일시: {{grant_date}}
+- 솔루션명: {{solution_name}}이제 해당 솔루션을 이용하실 수 있습니다.
+
+로그인 후 확인해주세요. 감사합니다.
+ADLY 운영팀
+
+
+
+6. ADLY 이용설정 완료 (USER_SETTINGS)
+
+템플릿 코드	USER_SETTINGS
+유형명	ADLY 이용설정 완료
+수신 대상	사용자 (광고주, 대행사)
+발송 시점	이용설정 신청 완료 시
+메일 제목	ADLY 이용설정이 완료되었습니다
+치환 변수	{{user_name}}, {{email}}, {{request_date}}, {{user_type}}
+본문	안녕하세요, {{user_name}}님
+ADLY 이용설정 신청이 정상적으로 접수되었습니다.
+
+신청 정보:
+- 이메일: {{email}}
+- 신청일시: {{request_date}}
+- 사용자 유형: {{user_type}}
+
+운영자 확인 후 서비스 이용이 가능합니다. 감사합니다.
+ADLY 운영팀
+
+
+7. 서비스 이용약관 변경 공지 (USER_TERMS)
+
+템플릿 코드	USER_TERMS
+유형명	서비스 이용약관 변경 공지
+수신 대상	사용자
+발송 시점	이용약관 변경 공지 시
+메일 제목	ADLY 서비스 이용약관이 변경되었습니다
+치환 변수	{{user_name}}, {{change_date}}, {{effective_date}}
+본문	
+안녕하세요, {{user_name}}님
+
+ADLY 서비스 이용약관이 변경되었습니다.
+
+변경 정보:
+
+- 변경일시: {{change_date}}
+
+- 시행일: {{effective_date}}
+
+로그인 후 변경된 약관을 확인해주세요. 감사합니다.
+
+ADLY 운영팀
+
+
+
+8. 개인정보 처리방침 변경 (USER_PRIVACY)
+
+템플릿 코드	USER_PRIVACY
+유형명	개인정보 처리방침 변경
+수신 대상	사용자
+발송 시점	개인정보 처리방침 변경 공지 시
+메일 제목	ADLY 개인정보 처리방침이 변경되었습니다
+치환 변수	{{user_name}}, {{change_date}}, {{effective_date}}
+본문	안녕하세요, {{user_name}}님
+
+ADLY 개인정보 처리방침이 변경되었습니다.
+
+변경 정보:
+- 변경일시: {{change_date}}
+- 시행일: {{effective_date}}
+
+변경된 내용을 확인해주세요. 감사합니다.
+ADLY 운영팀
+
+
+9. 사내 이메일 인증 (USER_INTERNAL_EMAIL_VERIFY)
+
+템플릿 코드	USER_INTERNAL_EMAIL_VERIFY
+유형명	사내 이메일 인증
+수신 대상	사용자 (임직원)
+발송 시점	사내 이메일 인증 요청 시
+메일 제목	[ADLY] 사내 이메일 인증을 완료해주세요
+치환 변수	{{user_name}}, {{verificationCode}}, {{expireTime}}
+본문	안녕하세요 {{user_name}}님
+ADLY 서비스 이용을 위해 사내 이메일 인증이 필요합니다.
+
+인증코드 : {{verificationCode}}
+
+※ 인증코드는 {{expireTime}} 동안 유효합니다. 감사합니다.
+ADLY 운영팀
+
+
+10. 담당 영업자 정보 수정 요청 알림 (ADMIN_SALES_INFO): 11~15종도 동일 구조 표로 정리됨 — 길어져서 동일 패턴 유지
+
+템플릿 코드	ADMIN_SALES_INFO
+유형명	담당 영업자 정보 수정 요청 알림
+수신 대상	운영자
+발송 시점	사용자가 담당 영업자 수정 요청 시
+메일 제목	[ADLY Admin] 담당 영업자 정보 수정 요청이 접수되었습니다
+치환 변수	{{user_name}}, {{email}}, {{request_date}}, {{advertiser_name}}, {{sales_info_before}}, {{sales_info_after}}
+본문	안녕하세요, 운영자님
+
+{담당 영업자 정보} 수정 요청이 접수되었습니다.
+
+요청 정보:
+- 요청자: {{user_name}} ({{email}})
+- 요청일시: {{request_date}}
+- 광고주명: {{advertiser_name}}
+- 변경 전: {{sales_info_before}}
+- 변경 후: {{sales_info_after}}
+
+관리자 페이지에서 확인 후 처리해주세요. 감사합니다.
+ADLY 시스템
+
+
+16. ADLY 이용설정 완료 (ADMIN_SETTINGS)
+
+템플릿 코드	ADMIN_SALES_INFO
+유형명	ADLY 이용설정 신청 알림
+수신 대상	운영자
+발송 시점	사용자가 ADLY 이용설정 신청 시
+메일 제목	[ADLY Admin] ADLY 이용설정 신청이 접수되었습니다
+치환 변수	{{user_name}}, {{email}}, {{request_date}}, {{advertiser_name}}, {{sales_info_before}}, {{sales_info_after}}
+본문	
+안녕하세요, {{user_name}}님
+ADLY 이용설정 신청이 접수되었습니다.
+
+사용자 정보:
+- 이메일: {{email}}
+- 신청일시: {{request_date}}
+- 사용자 유형: {{user_type}}
+
+어드민에서 확인 바랍니다.
+
+{어드민 바로가기 링크}
+
+감사합니다.
+ADLY 운영팀
+
+
+
+17. 자산요청 댓글 알림 (ADMIN_ASSET_COMMENT)
+
+템플릿 코드	ADMIN_ASSET_COMMENT
+유형명	자산요청 댓글 알림
+수신 대상	사용자
+발송 시점	운영자가 자산연결요청 상세에서 댓글을 작성한 시점
+메일 제목	[ADLY] 자산연결요청에 새로운 메시지가 있습니다
+치환 변수	{{user_name}}, {{brand_name}}, {{brand_code}}, {{media}}, {{admin_name}}, {{comment_content}}, {{comment_date}}
+본문	
+안녕하세요.
+{{user_name}}님 자산연결요청에 운영자 메시지가 등록되었습니다.
+
+요청 정보:
+
+- 브랜드: {{brand_name}} ({{brand_code}})
+- 매체: {{media}}
+
+메시지:
+- 작성자: {{admin_name}}(운영자)
+- 내용: {{comment_content}}
+- 작성일시: {{comment_date}}
+
+ADLY 이용설정 > 자산 정보 > 자산요청내역에서 확인해주세요. 감사합니다.
+ADLY 운영팀
+
+
+
+18. 자산요청 상태 변경 알림 (ADMIN_ASSET_STATUS)
+
+템플릿 코드	ADMIN_ASSET_STATUS
+유형명	자산요청 상태 변경 알림
+수신 대상	사용자
+발송 시점	운영자가 자산연결요청 상태를 변경한 시점 (처리중/완료/반려)
+메일 제목	[ADLY] 자산연결요청 상태가 변경되었습니다.
+치환 변수	{{user_name}}, {{brand_name}}, {{brand_code}}, {{media}}, {{prev_status}}, {{new_status}}, {{change_date}}, {{reject_reason}}
+본문	
+안녕하세요, {{user_name}}님 자산연결요청 상태가 변경되었습니다.
+
+요청 정보:
+
+- 브랜드: {{brand_name}} ({{brand_code}})
+
+- 매체: {{media}}
+
+상태 변경:
+
+ADLY 이용설정 > 자산 정보 > 자산요청내역에서 확인해주세요. 감사합니다.
+ADLY 운영팀
+
+
+
+19. 자산요청 사용자 댓글 알림 (USER_ASSET_COMMENT)
+
+템플릿 코드	USER_ASSET_COMMENT
+유형명	자산요청 사용자 댓글 알림
+수신 대상	운영자
+발송 시점	사용자가 자산연결요청 상세에 댓글을 작성한 시점
+메일 제목	[ADLY]  자산연결요청에 사용자 메시지가 등록되었습니다
+치환 변수	{{user_name}}, {{user_type}}, {{brand_name}}, {{brand_code}}, {{media}}, {{comment_content}}, {{comment_date}}
+본문	
+자산연결요청에 사용자 메시지가 등록되었습니다.
+
+사용자 정보:
+- 이름: {{user_name}}
+- 유형: {{user_type}}
+
+요청 정보:
+- 브랜드: {{brand_name}} ({{brand_code}})
+- 매체: {{media}}
+
+사용자 메시지:
+- 내용: {{comment_content}}
+- 작성일시: {{comment_date}}
+
+어드민 > 사용자 관리 > 사용자 상세 > 자산요청내역에서 확인해주세요.
+ADLY 시스템
+
+
+
+20. 신규 브랜드 등록 요청 알림 (USER_BRAND_REQUEST)
+
+템플릿 코드	USER_BRAND_REQUEST
+유형명	신규 브랜드 등록 요청 알림
+수신 대상	운영자
+발송 시점	임직원이 신규 브랜드 등록 요청을 제출한 시점
+메일 제목	[ADLY]  신규 브랜드 등록 요청이 접수되었습니다
+치환 변수	{{user_name}}, {{user_dept}}, {{brand_name}}, {{brand_desc}}, {{deal_type}}, {{advertiser_name}}, {{request_message}}, {{request_date}}
+본문	
+신규 브랜드 등록 요청이 접수되었습니다.
+
+요청자 정보:
+ - 요청 시스템: ADLY
+ - 요청 부서: {{user_dept}}
+ - 요청자: {{user_name}} {{request_message가 있을 경우}}
+ - 요청 메시지: {{request_message}}
+
+브랜드 정보:
+ - 브랜드명: {{brand_name}}
+ - 브랜드 설명: {{brand_desc}}
+
+광고주 정보:
+ - 광고주명: {{advertiser_name}}
+ - 요청일시: {{request_date}}
+
+어드민에서 확인 후 처리해주세요.
+ADLY 시스템
+
+
+
+
+
+(나머지 ADMIN 템플릿도 동일 구조)
+
+5. 치환 변수 목록
+{{user_name}}	사용자 이름
+{{email}}	사용자 이메일
+{{signup_date}}	가입일
+{{approval_date}}	승인일
+{{rejection_date}}	반려일
+{{rejection_reason}}	반려 사유
+{{suspension_date}}	정지일
+{{suspension_reason}}	정지 사유
+{{grant_date}}	권한 부여일
+{{request_date}}	요청일
+{{change_date}}	변경일
+{{effective_date}}	시행일
+{{solution_name}}	솔루션명
+{{advertiser_name}}	광고주명
+{{asset_type}}	자산 유형
+{{sales_info_before}}	변경 전 영업자
+{{sales_info_after}}	변경 후 영업자
+{{verificationCode}}	인증 코드
+{{expireTime}}	인증 유효시간
