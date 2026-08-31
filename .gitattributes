@@ -1,0 +1,9 @@
+# HTML은 텍스트로 취급 (줄바꿈/머지 정상 처리)
+*.html text eol=lf
+
+# 이미지는 바이너리로 취급 (diff/머지 시 깨짐 방지)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary

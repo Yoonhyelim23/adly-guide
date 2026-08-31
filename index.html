@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ADLY Docs - 이용설정 가이드</title>
+<!-- 고품격 본문 및 타이포그래피용 웹폰트 로드 -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- 정교한 마이크로 아이콘용 FontAwesome 로드 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            indigo: '#6F35F1',    /* ADLY 시그니처 퍼플/인디고 */
+                            dark: '#0B0F19',      /* 프리미엄 슬레이트 블랙 */
+                            muted: '#475569',     /* 가독성 텍스트 그레이 */
+                            border: '#F1F5F9',    /* 은은한 라인 그레이 */
+                            bgLight: '#F8FAFC'    /* 연한 회색 배경 */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans KR', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* 스크롤바 미니멀 스타일링 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* ================= Responsive / v2.0 Enhancements ================= */
+        #sidebarOverlay { display: none; }
+        @media (max-width: 1023px) {
+            header { padding-left: 1rem !important; padding-right: 1rem !important; }
+            aside#guideSidebar {
+                position: fixed; top: 64px; left: 0; bottom: 0; width: 82vw; max-width: 320px;
+                z-index: 40; transform: translateX(-105%); transition: transform 0.24s ease;
+                box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+            }
+            aside#guideSidebar.mobile-open { transform: translateX(0); }
+            #sidebarOverlay.mobile-open {
+                display: block; position: fixed; top: 64px; left: 0; right: 0; bottom: 0; z-index: 30;
+                background: rgba(15, 23, 42, 0.38); backdrop-filter: blur(2px);
+            }
+            main { padding-left: 1.25rem !important; padding-right: 1.25rem !important; padding-top: 2rem !important; }
+            .max-w-4xl { max-width: 100% !important; }
+            table { min-width: 720px; }
+            .overflow-hidden:has(table) { overflow-x: auto !important; }
+        }
+        @media (max-width: 640px) {
+            h1 { font-size: 1.75rem !important; line-height: 2.1rem !important; }
+            h2 { font-size: 1.2rem !important; }
+            .grid { grid-template-columns: 1fr !important; }
+            .p-6 { padding: 1.15rem !important; }
+            .p-5 { padding: 1rem !important; }
+            .text-\[15px\] { font-size: 14px !important; }
+            header .desktop-only { display: none !important; }
+        }
+        @media print {
+            header, aside, #sidebarOverlay, #mobileMenuBtn, .docs-toolbox { display: none !important; }
+            body { overflow: visible !important; height: auto !important; }
+            main { overflow: visible !important; padding: 0 !important; }
+            .tab-content.hidden { display: block !important; page-break-before: always; }
+        }
+
+        /* 사용자 유형별 그룹 권한 카드는 항상 위아래 1열로 표시 */
+        .permission-card-stack {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) !important;
+            gap: 1rem;
+        }
+
+    </style>
+</head>
+<body class="bg-white text-slate-800 flex flex-col h-screen overflow-hidden">
+<!-- 상단 슬림 헤더 -->
+<header class="flex-none h-16 border-b border-slate-100 px-8 flex items-center justify-between bg-white z-20">
+<div class="flex items-center gap-3">
+<button id="mobileMenuBtn" class="lg:hidden w-9 h-9 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 inline-flex items-center justify-center" type="button" aria-label="메뉴 열기"><i class="fa-solid fa-bars"></i></button>
+<!-- ADLY Docs 로고 -->
+<div class="flex items-center cursor-pointer" role="button" tabindex="0" title="문서 홈으로 이동" onclick="switchTab('tab-home')" onkeydown="if(event.key==='Enter'||event.key===' '){switchTab('tab-home')}">
+<span class="font-bold text-xl text-slate-900 tracking-tight">ADLY</span>
+<span class="font-normal text-slate-400 ml-1.5 text-lg">Docs</span>
+</div>
+</div>
+<!-- 우측 상단 바로가기 버튼 -->
+<div>
+<a class="desktop-only border border-slate-200 text-slate-500 hover:text-slate-800 hover:border-slate-300 text-[13px] px-4 py-2 rounded-lg font-medium transition-all inline-flex items-center gap-1.5 bg-white" href="https://main.adly.co.kr/" target="_blank" rel="noopener noreferrer">ADLY 이동하기</a>
+</div>
+</header>
+<div id="sidebarOverlay" aria-hidden="true"></div>
+<!-- 메인 레이아웃 (좌측 메뉴 고정 / 우측 본문 탭) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- 좌측 사이드바 메뉴 (260px 고정) -->
+<aside id="guideSidebar" class="w-[260px] flex-none border-r border-slate-100 bg-white overflow-y-auto px-4 py-6 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="relative"><i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i><input id="menuSearchInput" class="w-full pl-8 pr-3 py-2 rounded-lg border border-slate-200 text-[13px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-brand-indigo" type="search" placeholder="메뉴 검색"/></div>
+<!-- 1. ADLY 소개 -->
+<div class="space-y-1">
+<button class="category-toggle w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider hover:text-slate-600 flex items-center justify-between">
+<span>1. ADLY 소개</span>
+<i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="category-items pl-3 space-y-0.5 border-l border-slate-100 ml-3">
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-intro-ADLY">
+                        ADLY란?
+                    </button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-intro-solutions" style="text-align: left;">
+                        제공 솔루션
+                    </button>
+</div>
+</div>
+<!-- 2. 시작하기 -->
+<div class="space-y-1">
+<button class="category-toggle w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider hover:text-slate-600 flex items-center justify-between">
+<span>2. 시작하기</span>
+<i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="category-items pl-3 space-y-0.5 border-l border-slate-100 ml-3">
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-start-login">
+                        로그인 및 회원가입
+                    </button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-start-usertype">
+                        사용자 유형
+                    </button>
+</div>
+</div>
+<!-- 3. 이용설정 -->
+<div class="space-y-1">
+<button class="category-toggle w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider hover:text-slate-600 flex items-center justify-between">
+<span>3. 이용설정</span>
+<i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="category-items pl-3 space-y-0.5 border-l border-slate-100 ml-3">
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-overview" style="text-align: left;">
+    이용설정이란?
+</button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-steps" style="text-align: left;">
+    가입 단계 및 승인 방식
+</button>
+<!-- 임직원 대분류 및 하위 트리 아코디언 -->
+<div class="space-y-0.5">
+<button class="submenu-toggle w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all flex items-center justify-between font-medium">
+<span>임직원</span>
+<i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="submenu-items pl-3 space-y-0.5 border-l border-slate-200/60 ml-2.5">
+<button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-employee-info" style="text-align: left;">
+    STEP 1. 기본정보
+</button>
+<button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-employee-solution" style="text-align: left;">
+    STEP 2. 솔루션 선택
+</button>
+<button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-employee-advertiser" style="text-align: left;">
+    STEP 3. 광고주 등록
+</button>
+</div>
+</div>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-advertiser-agency">
+    광고주&amp;대행사
+</button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-setup-modification" style="text-align: left;">
+    이용설정 수정
+</button>
+</div>
+</div>
+<!-- 4. 자산 연결 -->
+<div class="space-y-1">
+<button class="category-toggle w-full text-left px-3 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider hover:text-slate-600 flex items-center justify-between">
+<span>4. 자산 연결</span>
+<i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 rotate-180"></i>
+</button>
+<div class="category-items pl-3 space-y-0.5 border-l border-slate-100 ml-3">
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-prerequisites">
+    자산 연결이란?
+</button>
+<div class="space-y-0.5">
+    <button class="submenu-toggle w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all flex items-center justify-between font-medium">
+        <span>사전 작업(관리 권한 부여)</span>
+        <i class="fa-solid fa-chevron-down text-[9px] transition-transform duration-200 rotate-180"></i>
+    </button>
+    <div class="submenu-items pl-3 space-y-0.5 border-l border-slate-200/60 ml-2.5">
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-prework" style="text-align: left;">개요</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-naver-sa" style="text-align: left;">NAVER SA</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-naver-gfa" style="text-align: left;">NAVER 성과형 DA (GFA)</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-naver-nosp" style="text-align: left;">NAVER 보장형 DA (NOSP)</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-google-ads" style="text-align: left;">Google Ads</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-meta" style="text-align: left;">Meta</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-kakao-moment" style="text-align: left;">Kakao 모먼트 / Kakao SA</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-targetpick" style="text-align: left;">Targetpick</button>
+        <button class="nav-item w-full text-left px-3 py-1.5 rounded-lg text-[12.5px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-smr" style="text-align: left;">SMR</button>
+    </div>
+</div>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-flow" style="text-align: left;">
+    자산 연결 요청
+</button>
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-[13px] text-slate-500 hover:text-slate-900 transition-all" data-target="tab-asset-newbrand">
+    신규 브랜드 등록 요청
+</button>
+</div>
+</div>
+<!-- 5. FAQ -->
+<button class="nav-item w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all flex items-center gap-2.5" data-target="tab-faq">
+<i class="fa-regular fa-circle-question text-slate-400"></i> 자주 묻는 질문
+            </button>
+</div>
+<!-- 하단 심플 푸터 -->
+<div class="border-t border-slate-100 pt-4 px-2 space-y-2"><div class="docs-toolbox grid grid-cols-2 gap-2"><button id="copyLinkBtn" class="text-[11px] px-2 py-1.5 rounded-md border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50" type="button">링크 복사</button><button id="printBtn" class="text-[11px] px-2 py-1.5 rounded-md border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50" type="button">인쇄/PDF</button></div><span class="text-[11px] text-slate-400 block font-light">© CJ MezzoMedia.</span>
+</div>
+</aside>
+<!-- 우측 메인 콘텐츠 영역 -->
+<main class="flex-1 overflow-y-auto bg-white px-8 md:px-16 py-12">
+<div class="max-w-4xl mx-auto space-y-10">
+<!-- ================= [TAB: HOME] ================= -->
+<div class="tab-content" id="tab-home">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">ADLY 이용 가이드에 오신 것을 환영합니다</h1>
+<p class="text-slate-500 leading-relaxed text-[15px]">
+                        ADLY 서비스를 쉽고 빠르게 사용하실 수 있도록 도와주는 통합 사용 안내서입니다.<br/>
+                        왼쪽 메뉴를 클릭하시면 간편 로그인 방법부터 서비스 사용을 위한 가입 설정, 매체 광고계정 연결 방법까지 원하는 내용을 바로 찾아보실 수 있습니다.
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
+<div class="p-6 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer" onclick="switchTab('tab-intro-ADLY')">
+<span class="text-indigo-600 font-bold text-sm block mb-1">Overview</span>
+<span class="font-bold text-slate-800 block mb-2 text-lg">ADLY 소개</span>
+<p class="text-xs text-slate-500 leading-relaxed">ADLY의 서비스 개념과 제공 목적을 확인합니다.</p>
+</div>
+<div class="p-6 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer" onclick="switchTab('tab-start-login')">
+<span class="text-indigo-600 font-bold text-sm block mb-1">Getting Started</span>
+<span class="font-bold text-slate-800 block mb-2 text-lg">시작하기</span>
+<p class="text-xs text-slate-500 leading-relaxed">Google 로그인 및 회원가입 방식과 사용자 유형을 확인합니다.</p>
+</div>
+<div class="p-6 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer" onclick="switchTab('tab-setup-overview')">
+<span class="text-indigo-600 font-bold text-sm block mb-1">Configuration</span>
+<span class="font-bold text-slate-800 block mb-2 text-lg">이용설정</span>
+<p class="text-xs text-slate-500 leading-relaxed">서비스 이용을 위한 기본정보, 솔루션, 광고주 등록 절차를 확인합니다.</p>
+</div>
+<div class="p-6 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-all cursor-pointer" onclick="switchTab('tab-asset-prerequisites')">
+<span class="text-indigo-600 font-bold text-sm block mb-1">Asset Connection</span>
+<span class="font-bold text-slate-800 block mb-2 text-lg">자산 연결</span>
+<p class="text-xs text-slate-500 leading-relaxed">매체별 사전 작업과 자산 연결 요청 방법을 확인합니다.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= [TAB: ADLY란?] ================= -->
+<div class="tab-content hidden" id="tab-intro-ADLY">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">ADLY란?</h1>
+<div class="text-slate-600 leading-relaxed text-[15px] space-y-3">
+<p><strong>ADLY</strong>는 광고 운영, 광고 성과 분석, 예측 분석 솔루션을 하나의 계정으로 이용할 수 있는 AI 기반 통합 광고 플랫폼입니다.</p>
+<p>기존에는 솔루션별로 각각 로그인해야 했던 광고 운영 환경을 하나로 통합하여, 한 번의 로그인으로 다양한 광고 솔루션에 접근하고 업무를 수행할 수 있습니다.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50"><span class="font-bold text-slate-800 block mb-2 text-base">1. 로그인 및 회원가입</span><p class="text-xs text-slate-500 leading-relaxed">Google 계정으로 로그인하고 ADLY 계정을 생성합니다.</p></div>
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50"><span class="font-bold text-slate-800 block mb-2 text-base">2. 이용설정</span><p class="text-xs text-slate-500 leading-relaxed">사용자 유형, 솔루션, 광고주 정보를 등록합니다.</p></div>
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50"><span class="font-bold text-slate-800 block mb-2 text-base">3. 솔루션 이용</span><p class="text-xs text-slate-500 leading-relaxed">승인 완료 후 선택한 솔루션을 사용합니다.</p></div>
+</div>
+</div>
+</div>
+
+<!-- ================= [TAB: 제공 솔루션] ================= -->
+<div class="tab-content hidden" id="tab-intro-solutions">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">제공 솔루션</h1>
+<p class="text-slate-600 leading-relaxed text-sm">ADLY에서는 아래 솔루션을 이용할 수 있습니다. 솔루션은 이용 목적에 따라 <strong>탐색·전략</strong>과 <strong>운영·인사이트</strong> 그룹으로 구분됩니다.</p>
+</div>
+<div class="overflow-hidden border border-slate-100 rounded-xl">
+<table class="min-w-full divide-y divide-slate-100 text-sm">
+<thead class="bg-slate-50">
+<tr>
+<th class="px-5 py-3 text-left font-bold text-slate-700 w-1/5">그룹</th>
+<th class="px-5 py-3 text-left font-bold text-slate-700 w-1/5">솔루션</th>
+<th class="px-5 py-3 text-left font-bold text-slate-700">설명</th>
+<th class="px-5 py-3 text-left font-bold text-slate-700 w-1/5">가이드</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-slate-600 text-[13px]">
+<tr>
+<td class="px-5 py-3 font-semibold text-indigo-600" rowspan="3">탐색 · 전략</td>
+<td class="px-5 py-3 font-bold text-slate-800">DataShot</td>
+<td class="px-5 py-3 leading-relaxed">업종별 벤치마크 기반 광고 효율 분석</td>
+<td class="px-5 py-3 leading-relaxed" rowspan="3"><a class="text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" href="https://readyset.adly.co.kr/docs/intro" target="_blank" rel="noopener noreferrer">탐색 · 전략 가이드 ↗</a></td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">Reach Caster</td>
+<td class="px-5 py-3 leading-relaxed">크로스미디어 통합 도달 예측 시뮬레이션</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">Budget Optimizer <span class="ml-1 text-red-500 text-xs font-semibold whitespace-nowrap">(임직원 전용)</span></td>
+<td class="px-5 py-3 leading-relaxed">KPI 목표 기반 미디어믹스 예산 최적화</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-semibold text-emerald-600" rowspan="5">운영 · 인사이트</td>
+<td class="px-5 py-3 font-bold text-slate-800">Opera</td>
+<td class="px-5 py-3 leading-relaxed">통합 광고 운영 및 성과를 관리합니다.</td>
+<td class="px-5 py-3 leading-relaxed align-middle" rowspan="5">
+<div class="space-y-3">
+<div>
+<a class="text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" href="https://wiki.cjenm.com/x/aY7YBg" target="_blank" rel="noopener noreferrer">운영 · 인사이트 가이드 (임직원용) ↗</a>
+</div>
+<div class="pt-3 border-t border-slate-100">
+<button class="text-left text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" onclick="switchTab('tab-guide-advertiser-agency')" type="button">운영 · 인사이트 가이드 (광고주/대행사용)</button>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">BidOpt</td>
+<td class="px-5 py-3 leading-relaxed">실시간 입찰을 최적화합니다.</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">BidAuto</td>
+<td class="px-5 py-3 leading-relaxed">자동 입찰 전략을 운영합니다.</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">ifAd</td>
+<td class="px-5 py-3 leading-relaxed">조건 기반 광고 자동화를 제공합니다.</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">Intella</td>
+<td class="px-5 py-3 leading-relaxed">광고 데이터를 통합 분석합니다.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">Solution Launcher에서 솔루션 이동</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="Solution Launcher에서 솔루션 이동" class="w-full h-auto block" src="images/img_01_47b7c70161.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 솔루션 이동 안내</p>
+<p>• 회원가입이 완료된 사용자는 ADLY 메인 화면에서 연동된 솔루션을 확인할 수 있습니다.</p>
+<p>• 이용설정 완료 후 승인 상태의 사용자는 솔루션 버튼을 클릭하면 해당 솔루션으로 이동합니다.</p>
+<p>• 오픈 전 솔루션은 비활성화 상태로 표시될 수 있습니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 솔루션 이동 방법] ================= -->
+<div class="tab-content hidden" id="tab-intro-navigation">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">솔루션 이동 방법</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">
+                        이용설정이 완료된 사용자는 ADLY 대시보드 우측 상단 메뉴바에 있는 <strong>[솔루션 스위처] (바둑판 모양의 사각형 그리드 버튼)</strong>를 눌러, 
+                        권한이 허용된 솔루션들(앤써, 데이터샷, 오페라 등) 간을 자유롭게 오가며 작업할 수 있습니다.
+                    </p>
+</div>
+</div>
+<!-- ================= [TAB: 로그인] ================= -->
+<div class="tab-content hidden" id="tab-start-login">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">로그인 및 회원가입</h1>
+</div>
+<section class="space-y-4">
+
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>ADLY는 별도의 회원가입 절차 없이 Google 로그인 기반으로 계정이 생성됩니다.</p>
+<p>최초 로그인 이후에는 서비스 이용을 위해 ADLY 이용설정을 등록해야 합니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">ADLY 로그인 페이지</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="ADLY 로그인 페이지" class="w-full h-auto block" src="images/img_02_d5269b90dc.png"/>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">Google 계정 로그인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="Google 계정 로그인" class="w-full h-auto block" src="images/img_03_9b95d6c0da.png"/>
+</div>
+
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">ADLY 이용 약관 동의</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="ADLY 이용 약관 동의" class="w-full h-auto block" src="images/img_04_c63be4708b.png"/>
+</div>
+
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 로그인 절차</p>
+<p>• 로그인 페이지에 접속합니다.</p>
+<p>• <strong>[Google로 로그인]</strong> 버튼을 선택합니다.</p>
+<p>• ADLY 이용 약관에 동의합니다.(필수)</p>
+<p>• 완료 후 ADLY 메인 화면으로 이동합니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 회원가입] ================= -->
+
+<!-- ================= [TAB: 사용자 유형] ================= -->
+<div class="tab-content hidden" id="tab-start-usertype">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">사용자 유형</h1>
+<p class="text-slate-600 leading-relaxed text-[15px] mb-4">ADLY 가입 시 본인의 담당 역할에 맞는 알맞은 회원 유형을 선택하셔야 합니다. 회원 유형에 따라 이용설정 승인 방식이 결정됩니다.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="userTypeSelector">
+<button class="user-type-card p-5 border border-brand-indigo rounded-xl bg-indigo-50 ring-1 ring-brand-indigo/20 text-left hover:border-brand-indigo hover:bg-indigo-50/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-indigo/30" type="button" data-user-type="employee" aria-pressed="true">
+<span class="font-bold text-slate-900 block mb-1">임직원</span>
+<p class="text-xs text-slate-500 leading-relaxed">광고 및 캠페인을 내부 기획 및 제어하는 CJ메조미디어와 DXE 소속 직원용 계정입니다.</p>
+</button>
+<button class="user-type-card p-5 border border-slate-100 rounded-xl bg-slate-50 text-left hover:border-brand-indigo hover:bg-indigo-50/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-indigo/30" type="button" data-user-type="external" aria-pressed="false">
+<span class="font-bold text-slate-900 block mb-1">광고주</span>
+<p class="text-xs text-slate-500 leading-relaxed">우리 회사의 마케팅 효과와 리포트 데이터를 실시간 분석하고 확인하는 광고주 전용 계정입니다.</p>
+</button>
+<button class="user-type-card p-5 border border-slate-100 rounded-xl bg-slate-50 text-left hover:border-brand-indigo hover:bg-indigo-50/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-indigo/30" type="button" data-user-type="external" aria-pressed="false">
+<span class="font-bold text-slate-900 block mb-1">대행사</span>
+<p class="text-xs text-slate-500 leading-relaxed">다양한 광고주의 광고 집행과 분석 보고서 관리를 일임받아 관리하는 전문 파트너사 전용 계정입니다.</p>
+</button>
+</div>
+<div class="p-4 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 leading-relaxed">
+<p><i class="fa-solid fa-circle-info text-brand-indigo mr-2"></i><strong>‘탐색·전략’과 ‘운영·인사이트’ 그룹은 사용자 유형에 따라 이용 권한이 다릅니다.</strong></p>
+<p class="mt-1 text-xs text-slate-500">위에서 사용자 유형을 선택하면 그룹별 이용 권한을 확인할 수 있습니다.</p>
+</div>
+<div class="user-type-permission space-y-5" data-permission-panel="employee">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-brand-indigo text-white text-xs font-bold"><i class="fa-solid fa-user-tie"></i></span>
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">임직원 이용 권한</h2>
+</div>
+<div class="permission-card-stack">
+<section class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-3">
+<h3 class="font-bold text-brand-indigo">탐색·전략</h3>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>ReadySet의 전 솔루션(DataShot, Reach Caster 및 추가 예정인 Ad Curator, Budget Optimizer)에 대한 생성, 수정, 삭제, 이동·복제 등 전반적인 관리 권한을 제공받습니다.</p>
+<p>Slot을 직접 생성하여 자유롭게 설정을 변경할 수 있으며, 분석 결과의 다운로드는 물론 솔루션 특화 AI Agent 'SpinX'를 활용해 데이터 분석 및 질의를 제한 없이 수행할 수 있습니다.</p>
+</div>
+</section>
+<section class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-3">
+<h3 class="font-bold text-brand-indigo">운영·인사이트</h3>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>읽기 권한 및 운영 관리 권한을 부여받을 수 있습니다.</p>
+<p>권한이 있는 Intella 대시보드를 조회 및 생성,수정,삭제할 수 있습니다.</p>
+<p>대시보드의 웹 게시 기간이 만료되도 대시보드 조회 및 생성,수정, 삭제할 수 있습니다.</p>
+</div>
+</section>
+</div>
+</div>
+<div class="user-type-permission hidden space-y-5" data-permission-panel="external">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-brand-indigo text-white text-xs font-bold"><i class="fa-solid fa-building"></i></span>
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">광고주·대행사 이용 권한</h2>
+</div>
+<div class="permission-card-stack">
+<section class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-3">
+<h3 class="font-bold text-brand-indigo">탐색·전략</h3>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>공유받은 Slot 내 솔루션들의 분석 및 예측 실행 결과를 확인하고 다운로드할 수 있습니다.</p>
+<p>또한 솔루션 특화 AI Agent 'SpinX'를 활용한 AI 질의응답을 통해 공유받은 데이터를 다각도로 탐색하고 필요한 전략 인사이트를 자유롭게 도출할 수 있습니다.</p>
+</div>
+</section>
+<section class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm space-y-3">
+<h3 class="font-bold text-brand-indigo">운영·인사이트</h3>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>기본적으로 읽기 권한을 부여받을 수 있습니다.</p>
+<p>권한이 있는 브랜드 자산의 성과 조회가 가능합니다.</p>
+<p>Intella 대시보드 목록에서는 게시 기간이 유효한 대시보드를 조회할 수 있습니다.</p>
+<p>만약 웹 게시 기간이 설정되지 않거나 만료된 대시보드는 대시보드 목록에서 조회하거나 웹 공유 URL 접속이 불가합니다.</p>
+<p>조회 가능한 매체는 지속적으로 확장될 예정입니다. (2026년 10월: TVING, TikTok, 당근, Netflix, SOOP 추가 예정)</p>
+</div>
+</section>
+</div>
+
+</div>
+</div>
+</div>
+<!-- ================= [TAB: 이용설정이란?] ================= -->
+<div class="tab-content hidden" id="tab-setup-overview">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">이용설정이란?</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">
+                        이용설정은 ADLY 서비스를 이용하기 위해 필요한 사용자 정보, 사용할 솔루션, 광고주 정보를 등록하는 과정입니다.
+                        이용설정을 완료하면 선택한 솔루션을 사용할 수 있습니다. 사용자 유형에 따라 이용설정 절차가 다릅니다.
+                    </p>
+<div class="space-y-3">
+<p class="text-sm font-bold text-slate-800">임직원</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50 min-h-[128px]">
+<span class="font-bold text-slate-900 block mb-1">STEP 1. 기본정보</span>
+<p class="text-xs text-slate-500 leading-relaxed">사용자 유형, 소속 정보, 사내 이메일 인증 정보를 입력합니다.</p>
+</div>
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50 min-h-[128px]">
+<span class="font-bold text-slate-900 block mb-1">STEP 2. 솔루션 선택</span>
+<p class="text-xs text-slate-500 leading-relaxed">이용할 솔루션 그룹을 선택합니다.</p>
+</div>
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50 min-h-[128px]">
+<span class="font-bold text-slate-900 block mb-1">STEP 3. 광고주 등록</span>
+<p class="text-xs text-slate-500 leading-relaxed">필요한 경우 업무 대상 광고주를 등록합니다.</p>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<p class="text-sm font-bold text-slate-800">광고주&amp;대행사</p>
+<div class="grid grid-cols-1 gap-4">
+<div class="p-5 border border-slate-100 rounded-xl bg-slate-50 min-h-[128px]">
+<span class="font-bold text-slate-900 block mb-1">이용신청 작성 및 제출</span>
+<p class="text-xs text-slate-500 leading-relaxed">기본정보를 입력하여 이용을 신청합니다. 별도의 솔루션 선택, 광고주 등록 단계 없이 신청 즉시 완료되며, 영업 담당자의 승인 후 ADLY를 이용할 수 있습니다.</p>
+</div>
+</div>
+</div>
+<div class="p-4 bg-indigo-50/50 rounded-xl border-l-4 border-indigo-500 text-xs text-slate-600 space-y-1">
+<p class="font-bold text-indigo-600"><i class="fa-regular fa-lightbulb"></i> 이용설정 핵심 기준</p>
+<p>• 임직원은 이용설정 제출 후 즉시 승인되어 ADLY를 사용할 수 있습니다.</p>
+<p>• 광고주·대행사는 이용신청 제출 후 영업 담당자의 승인이 완료되면 ADLY를 사용할 수 있습니다.</p>
+<p>• <strong>탐색·전략</strong> 그룹을 선택하면 광고주 등록이 필요합니다.</p>
+<p>• <strong>운영·인사이트</strong> 그룹을 선택하면 자산 연결을 필수로 진행해야 합니다.</p>
+</div>
+</div>
+</div>
+<!-- ================= [TAB: 이용설정 개요] ================= -->
+<div class="tab-content hidden" id="tab-setup-steps">
+<div class="space-y-6">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">가입 단계 및 승인 방식</h1>
+<p class="text-slate-600 leading-relaxed text-sm">사용자 유형에 따라 승인 방식과 이용설정 절차가 다릅니다.</p>
+<div class="overflow-hidden border border-slate-100 rounded-xl">
+<table class="min-w-full divide-y divide-slate-100 text-sm">
+<thead class="bg-slate-50">
+<tr>
+<th class="px-5 py-3 text-left font-bold text-slate-700">사용자 유형</th>
+<th class="px-5 py-3 text-left font-bold text-slate-700">승인 방식</th>
+<th class="px-5 py-3 text-left font-bold text-slate-700">이용설정 절차</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-slate-600 text-[13px]">
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">임직원</td>
+<td class="px-5 py-3 font-semibold text-emerald-600"><i class="fa-solid fa-bolt mr-1"></i> 즉시 승인</td>
+<td class="px-5 py-3">기본정보 입력 → 솔루션 선택 → 광고주 등록</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">광고주</td>
+<td class="px-5 py-3 text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 운영자 승인</td>
+<td class="px-5 py-3">이용신청 작성 및 제출</td>
+</tr>
+<tr>
+<td class="px-5 py-3 font-bold text-slate-800">대행사</td>
+<td class="px-5 py-3 text-slate-500"><i class="fa-regular fa-clock mr-1"></i> 운영자 승인</td>
+<td class="px-5 py-3">이용신청 작성 및 제출</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- ================= [TAB: 임직원 - 1. 기본정보] ================= -->
+<div class="tab-content hidden" id="tab-setup-employee-info">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">임직원 - STEP 1. 기본정보 입력</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">임직원은 법인구분과 사내 이메일 인증을 완료한 뒤 다음 단계로 이동할 수 있습니다.</p>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">인증번호 발송 전</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="인증번호 발송 전" class="w-full h-auto block" src="images/img_05_caa26f9e41.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 기본정보 입력 안내</p>
+<p>• 법인구분을 선택한 후 @cj.net 형식의 사내 이메일을 입력하고 [인증번호 발송] 버튼을 클릭합니다.</p>
+
+<p>• MTS 본인 계정에 등록된 사내 이메일이어야 합니다. 계정이 없을 경우 인사팀에게 계정 생성을 요청합니다.</p>
+<p>• 재직 상태인 임직원만 인증이 가능합니다.</p></div>
+
+<div class=\"p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed\"></div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">인증번호 발송 후</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="인증번호 발송 후" class="w-full h-auto block" src="images/img_06_0313515992.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 이메일 인증 안내</p>
+<p>• 이메일로 수신한 <strong>6자리 인증번호</strong>를 입력한 뒤 <strong>[인증 확인]</strong> 버튼을 클릭합니다.</p>
+<p>• 인증번호 유효시간은 <strong>3분</strong>입니다.</p>
+<p>• 인증번호가 만료되었거나 수신되지 않은 경우 <strong>[재발송]</strong> 버튼을 클릭합니다.</p>
+<p>• 재발송 후에는 <strong>가장 최근에 발송된 인증번호만</strong> 사용할 수 있습니다.</p>
+</div>
+</section>
+</div>
+</div>
+<!-- ================= [TAB: 임직원 - 2. 솔루션 선택] ================= -->
+<div class="tab-content hidden" id="tab-setup-employee-solution">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">임직원 - STEP 2. 솔루션 선택</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">업무에 필요한 솔루션 그룹을 선택합니다. 선택한 그룹에 따라 광고주 등록 또는 자산 연결 진행 여부가 달라집니다.</p>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">솔루션 선택</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="솔루션 선택" class="w-full h-auto block" src="images/img_07_f9ed1ae1cd.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 솔루션 선택 기준</p>
+<p>• <strong>탐색·전략 그룹</strong>은 DataShot, Reach Caster, Budget Optimizer로 구성되며, 광고주 데이터를 기반으로 서비스를 제공하므로 광고주 등록이 필요합니다.</p>
+<p>• <strong>운영·인사이트 그룹</strong>은 Opera, BidOpt, BidAuto, ifAd, Intella로 구성되며, 광고계정 데이터를 수집해야 하므로 이용설정 후 자산 연결을 필수로 진행해야 합니다.</p>
+<p>• <strong>Budget Optimizer</strong>는 임직원만 이용할 수 있습니다.</p>
+</div>
+</section>
+</div>
+</div>
+<!-- ================= [TAB: 임직원 - 3. 광고주 등록] ================= -->
+<div class="tab-content hidden" id="tab-setup-employee-advertiser">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">임직원 - STEP 3. 광고주 등록</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">탐색·전략 그룹을 선택한 경우 광고주를 1개 이상 등록해야 합니다. 광고주는 최대 100개까지 등록할 수 있습니다.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">광고주 등록 시작</span>
+</div>
+<div class="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
+<img alt="광고주 등록 시작" class="w-full h-auto block" src="images/img_08_a96bf74b3a.png"/>
+</div>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 광고주 등록 기준</p>
+<p>• <strong>탐색·전략 그룹(DataShot, Reach Caster, Budget Optimizer)</strong>은 광고주 데이터를 기반으로 서비스를 제공하므로 광고주 등록이 필요합니다.</p>
+<p>• <strong>운영·인사이트 그룹(Opera, BidOpt, BidAuto, ifAd, Intella)</strong>만 선택한 경우 광고주 등록 없이 이용설정을 완료할 수 있습니다.</p>
+<p>• 광고주 등록은 최대 100개까지 가능합니다.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">광고주 검색 및 선택</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고주 검색 및 선택" class="w-full h-auto block" src="images/img_09_4be66b538f.png"/>
+</div>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 광고주 검색 및 추가 안내</p>
+<p>• 광고주명 또는 사업자번호로 광고주를 검색합니다.</p>
+<p>• 광고주 정보는 메조미디어 DSS에 등록된 광고주 중에서 검색합니다.</p>
+<p>• 광고주 정보에 사업자번호가 등록되어 있을 경우 사업자번호로 조회가 가능합니다.</p>
+<p>• 검색 결과에서 <strong>[추가]</strong> 버튼을 클릭하면 우측 등록된 광고주 영역에 추가됩니다.</p>
+<p>• 동일한 광고주는 중복 등록할 수 없습니다.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">광고주 등록 완료</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고주 등록 완료" class="w-full h-auto block" src="images/img_10_3c841437f3.png"/>
+</div>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 광고주 등록 안내</p>
+<p>• 등록한 광고주는 광고주 정보 화면에서 확인할 수 있습니다.</p>
+<p>• 휴지통 버튼을 클릭하여 개별 삭제할 수 있으며, 전체 삭제도 가능합니다.</p>
+<p>• 광고주 등록은 해당 광고주에 대해 관리 권한을 설정하는 것이며, 등록이 완료되었다고 광고주의 집행 데이터를 즉시 조회 및 운영할 수는 없습니다.</p>
+</div>
+<section class="space-y-4 pt-4 border-t border-slate-100">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">신규 광고주 등록 요청</h2>
+<p class="text-slate-600 text-sm leading-relaxed">검색 결과에 필요한 광고주가 없는 경우 신규 광고주 등록 요청을 진행합니다.</p>
+
+
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">4</span>
+<span class="font-bold text-slate-900">신규 광고주 등록 요청 화면</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="신규 광고주 등록 요청 화면" class="w-full h-auto block" src="images/img_11_a7c12d5662.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-building mr-1"></i> 신규 광고주 등록 요청 안내</p>
+<p>• 등록하고자 하는 광고주가 없을 경우 검색 결과 내 <strong>[신규 광고주 등록 요청]</strong>을 클릭합니다.</p>
+<p>• 입력 항목은 거래 구분(대행거래/직거래), 광고주명입니다.</p>
+<p>• 직거래로 요청하는 경우 사업자명을 검색해 확인하는 절차가 추가됩니다.</p>
+<p>• 요청한 광고주는 운영자 확인 후 등록됩니다.</p>
+</div>
+
+</section>
+</div>
+</div>
+<!-- ================= [TAB: 광고주&대행사] ================= -->
+<div class="tab-content hidden" id="tab-setup-advertiser-agency">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">광고주&amp;대행사</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">광고주·대행사는 기본정보를 입력하여 이용을 신청하며, 영업 담당자의 승인 완료 후 ADLY를 이용할 수 있습니다.</p>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">이용 신청 작성</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고주&대행사 이용신청" class="w-full h-auto block" src="images/img_12_8f1d302d5b.png"/>
+</div>
+<div class="text-slate-600 leading-relaxed text-[15px] space-y-3 pt-2">
+<p>사용자 유형에서 <strong>광고주</strong> 또는 <strong>대행사</strong>를 선택하고, 회사명과 신청자 정보를 입력합니다.</p>
+<ul class="list-disc pl-5 space-y-1 text-sm text-slate-500">
+<li><strong class="text-slate-700">회사명</strong>: 광고주명 또는 대행사명을 직접 입력합니다.</li>
+<li><strong class="text-slate-700">사업자등록번호</strong>: 선택 항목으로, 입력 시 10자리 형식으로 검증됩니다.</li>
+<li><strong class="text-slate-700">신청자 정보</strong>: 신청자 이름과 업무용 이메일을 입력합니다.</li>
+<li><strong class="text-slate-700">영업 담당자 정보</strong>: 영업 담당자의 법인구분과 사내 이메일을 입력하고 [조회] 버튼으로 확인합니다.</li>
+</ul>
+</div>
+</section>
+
+<section class="space-y-4 border-t border-slate-100 pt-8">
+<div class="flex items-center gap-2 mb-5">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">영업 담당자 승인</span>
+</div>
+<p class="text-slate-600 leading-relaxed text-[15px]">이용 신청이 완료되면 영업 담당자의 승인을 거쳐 ADLY를 이용할 수 있습니다.</p>
+<div class="rounded-xl border-l-4 border-brand-indigo bg-indigo-50/50 p-5 text-sm leading-relaxed text-slate-700">
+<strong class="text-brand-indigo">참고</strong> 영업 담당자 정보가 조회되지 않는 경우, 거래 중인 CJ메조미디어 또는 DXE 담당자에게 문의해 주세요.
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 정보 수정 / 신규 등록 요청 (image_89ee6b.png 구현)] ================= -->
+<div class="tab-content hidden" id="tab-setup-modification">
+<div class="space-y-8">
+<div class="space-y-3 border-b border-slate-100 pb-4">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">이용설정 수정</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">승인 후에도 일부 이용설정 정보를 수정할 수 있습니다. 수정 가능 항목과 반영 방식은 사용자 유형 및 정보 종류에 따라 다릅니다.</p>
+</div>
+<section class="space-y-4">
+<p class="text-slate-500 text-sm leading-relaxed">각 정보 화면에서 <strong>[수정]</strong> 버튼을 클릭한 뒤 내용을 변경하고 <strong>[저장]</strong>합니다.</p>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">이용설정 수정 화면</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="이용설정 수정 화면" class="w-full h-auto block" src="images/img_13_ae93e614a6.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-3 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 수정 반영 기준</p>
+<p><i class="fa-solid fa-rotate text-brand-indigo mr-2"></i><strong>임직원 유형 정보 변경:</strong> 저장 즉시 반영됩니다. 다만, 솔루션 정보를 수정할 경우 반영에 최대 15분이 소요됩니다.</p>
+<p><i class="fa-solid fa-shield-halved text-brand-indigo mr-2"></i><strong>광고주·대행사 기본 정보 변경:</strong> 기본 정보 수정 시 영업 담당자가 검토 후 반영됩니다. 승인 결과는 등록된 업무용 이메일로 안내됩니다.</p>
+<p><i class="fa-solid fa-ban text-brand-indigo mr-2"></i><strong>광고주·대행사 솔루션/광고주 정보 변경:</strong> 솔루션 정보 및 광고주 정보 수정은 불가합니다. 수정이 필요하실 경우 영업 담당자에게 문의해주세요.</p>
+<p><i class="fa-solid fa-lock text-brand-indigo mr-2"></i><strong>수정 불가 항목:</strong> 가입 시 선택한 사용자 유형과 인증 완료된 사내 이메일은 수정할 수 없습니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 사전 필수 절차] ================= -->
+<div class="tab-content hidden" id="tab-asset-prerequisites">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">자산 연결이란?</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">자산연결은 운영·인사이트 그룹 솔루션에서 광고 운영 데이터와 성과 데이터를 조회하기 위해 브랜드와 광고매체 자산을 연결하는 과정입니다.</p>
+<p class="text-slate-600 leading-relaxed text-[15px]">자산연결을 완료하면 익일부터 어제자 성과데이터 조회가 가능합니다.</p>
+<p class="text-slate-600 leading-relaxed text-[15px]">(예: 2026년 7월 28일 자산 연결 완료 시 7월 29일부터 7월 28일자 성과데이터 조회 가능)</p>
+<p class="text-slate-600 leading-relaxed text-[15px]">이미 자산이 연결된 브랜드에 신규 자산을 1개만 추가하더라도, 승인 완료 시 해당 브랜드의 기연결 자산 전체를 함께 확인할 수 있습니다.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-bullseye mr-1"></i> 자산 연결 대상</p>
+<p>운영·인사이트 그룹(Opera, BidOpt, BidAuto, ifAd, Intella)을 선택한 사용자는 광고계정 데이터를 연동하기 위해 자산 연결을 진행해야 합니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-list-check mr-1"></i> 자산 연결 전 준비사항</p>
+<p>연동하려는 외부 광고 매체의 광고계정 접근 권한을 먼저 확인합니다. 이 부분은 <strong>‘사전 작업(관리 권한 부여)’</strong> 메뉴를 확인합니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-clock-rotate-left mr-1"></i> 요청 후 확인 방법</p>
+<p>자산 연결 요청을 제출하면 자산요청내역에서 상태를 확인할 수 있습니다. 운영자 승인 후 자산현황에서 연결된 자산을 확인할 수 있습니다.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= [TAB: 자산 연결 요청 절차] ================= -->
+
+<div class="tab-content hidden" id="tab-asset-prework">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">사전 작업(관리 권한 부여)</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">ADLY 사용을 위해 매체 관리자센터에서 <strong>관리 권한 부여</strong> 후 ADLY 이용설정에서 <strong>자산 연결</strong>이 진행되어야 합니다. 이미 관리 권한 부여가 되어 있는 상태라면 ADLY 이용설정에서 <strong>자산 연결</strong> 요청을 진행해 주시기 바랍니다.</p>
+<p class="text-slate-600 leading-relaxed text-[15px]">자산 연결 요청 전, 각 광고 매체에서 광고계정 접근 권한과 입력해야 할 고유값을 먼저 확인합니다. 권한이 없으면 자산 조회 또는 연결 요청이 실패할 수 있습니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 공통 확인사항</p>
+<p>• 광고계정 조회 또는 관리 권한이 있는 계정으로 각 매체 관리자 화면에 접속합니다.</p>
+<p>• 브랜드, 매체, 자산고유값이 올바른지 확인한 뒤 ADLY에서 자산 연결 요청을 진행합니다.</p>
+<p>• 브랜드가 ADLY에서 조회되지 않는 경우 신규 브랜드 등록 요청을 먼저 진행합니다.</p>
+</div>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">매체별 사전 확인 항목</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">NAVER 성과형 SA/DA(GFA)</p><p class="text-sm text-slate-600">대표 관리 계정 연동 여부와 네이버 통합 ID 번호를 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">NAVER 보장형 DA(NOSP)</p><p class="text-sm text-slate-600">고객사 및 브랜드 등록 여부를 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">Google Ads</p><p class="text-sm text-slate-600">관리자(MCC) 계정 연결 여부와 광고계정 ID를 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">Meta</p><p class="text-sm text-slate-600">비즈니스 관리자 연결 여부, 필수 권한, 광고계정 ID를 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">Kakao 모먼트 / Kakao SA</p><p class="text-sm text-slate-600">멤버 초대 상태와 광고계정 ID를 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">Targetpick</p><p class="text-sm text-slate-600">DSS 브랜드코드와 Targetpick 집행 이력을 확인합니다.</p></div>
+<div class="p-5 rounded-xl border border-slate-100 bg-white shadow-sm"><p class="font-bold text-slate-900 mb-1">SMR</p><p class="text-sm text-slate-600">SMR 집행 이력과 브랜드번호를 확인합니다.</p></div>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-naver-sa">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">NAVER SA</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">NAVER SA 자산을 연결하기 전에 자산고유값을 확인합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">대표 관리 계정</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 대표 관리 계정 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• CJ메조미디어 대표 관리 계정명은 <strong>메조미디어_결제</strong>입니다.</p>
+<p>• DXE 대표 관리 계정은 <strong>디베이스앤_선불</strong>입니다.</p>
+<p>• 대표 관리 계정 아래 광고계정이 연결되어 있다면 계정 연결 및 관리 권한 요청을 진행합니다.</p>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">자산고유값 확인 방법</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">입력 기준</p>
+<p>• NAVER SA 자산 연결 시 입력할 자산고유값은 <strong>네이버 통합 ID 번호</strong>입니다.</p>
+<p>• 네이버 통합 ID 번호는 네이버 광고주센터 URL 또는 광고계정 정보 영역에서 확인할 수 있습니다.</p>
+
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">URL에서 네이버 통합 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="URL에서 네이버 통합 ID 확인" class="w-full h-auto block" src="images/img_14_520a9f4cc3.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 확인 방법</p>
+<p>• URL의 <strong>/manage/ad-accounts/{{ID}}</strong> 영역에 표시되는 숫자가 네이버 통합 ID입니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">광고계정 정보에서 네이버 통합 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 정보에서 네이버 통합 ID 확인" class="w-full h-auto block" src="images/img_15_16a2a165b6.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 확인 방법</p>
+<p>• 네이버 광고주센터 좌측 광고계정 영역에 표시되는 숫자가 네이버 통합 ID입니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-naver-gfa">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">NAVER 성과형 DA (GFA)</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">NAVER 성과형 DA(GFA) 자산을 연결하기 전에 대표 관리 계정 하위 광고계정 여부와 자산고유값을 확인합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">대표 관리 계정</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 대표 관리 계정 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• CJ메조미디어 대표 관리 계정명은 <strong>메조미디어_결제</strong>입니다.</p>
+<p>• DXE 대표 관리 계정은 <strong>디베이스앤_선불</strong>입니다.</p>
+<p>• 대표 관리 계정 아래 광고계정이 연결되어 있다면 계정 연결 및 관리 권한 요청을 진행합니다.</p>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">자산고유값 확인 방법</h2>
+
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">URL에서 네이버 통합 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="URL에서 네이버 통합 ID 확인" class="w-full h-auto block" src="images/img_16_40587ef34b.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 입력 기준</p>
+<p>• NAVER 성과형 DA(GFA) 자산 연결 시 입력할 자산고유값은 <strong>네이버 통합 ID 번호</strong>입니다.</p>
+<p>• 네이버 통합 ID 번호는 네이버 광고주센터에서 확인할 수 있습니다.</p>
+</div>
+
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 확인 방법</p>
+<p>• URL의 <strong>/ad-account/{{ID}}</strong> 영역에 표시되는 숫자가 네이버 통합 ID입니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">광고계정 정보에서 네이버 통합 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 정보에서 네이버 통합 ID 확인" class="w-full h-auto block" src="images/img_17_52f6e9b00a.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 확인 방법</p>
+<p>• 광고계정 정보 영역에 표시되는 광고계정 번호를 확인합니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">대표 관리 계정 연동 여부 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="대표 관리 계정 연동 여부 확인" class="w-full h-auto block" src="images/img_18_9be69abed6.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 확인 경로</p>
+<p>• <strong>설정 → 권한 관리 → 관리 계정 연동 → 연동 중인 관리 계정</strong>에서 대표 관리 계정 하위에 광고계정이 연동되어 있는지 확인한 후 자산 연결을 요청합니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-naver-nosp">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">NAVER 보장형 DA (NOSP)</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">NAVER 보장형 DA(NOSP) 자산을 연결하기 전에 대표 관리 계정 하위 광고계정 여부와 브랜드 등록 여부를 확인합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">대표 관리 계정</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 대표 관리 계정 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• 대표 관리 계정에 고객사 및 브랜드가 등록되어 있어야 ADLY에서 자산 연결이 가능합니다.</p>
+<p>• 고객사 및 브랜드가 등록되어 있지 않다면 먼저 등록을 진행합니다.</p>
+<p>• 고객사 및 브랜드가 등록되어 있다면 계정 연결 및 관리 권한 요청을 진행합니다.</p>
+<p>• 캠페인 집행 시작일 이후 자산 연결을 요청합니다. 집행 전인 경우 ADLY 자산 연결 대상으로 조회되지 않습니다.</p>
+
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">고객사 및 브랜드 등록 여부 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="고객사 및 브랜드 등록 여부 확인" class="w-full h-auto block" src="images/img_19_363d1a7f67.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 자산 연결 시 확인 정보</p>
+<p>• <strong>고객명</strong></p>
+<p>• <strong>브랜드번호</strong></p>
+<p>• <strong>브랜드명</strong></p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-google-ads">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Google Ads</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">Google Ads 자산을 연결하기 전에 관리자(MCC) 계정 하위 광고계정 여부와 광고계정 ID를 확인합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">관리자(MCC) 계정</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 관리자(MCC) 계정 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• 관리자(MCC) 계정명은 <strong>Mezzomedia_Master MCC (798-782-2632)</strong>입니다.</p>
+<p>• 관리자(MCC) 계정에 광고계정이 연결되어 있어야 ADLY에서 자산 연결이 가능합니다.</p>
+<p>• 광고계정이 연결되어 있지 않다면 먼저 광고계정 연결을 진행합니다.</p>
+<p>• 광고계정이 연결되어 있다면 계정 연결 및 관리 권한 요청을 진행합니다.</p>
+
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">광고계정 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 ID 확인" class="w-full h-auto block" src="images/img_20_5465303a62.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 자산 연결 시 확인 정보</p>
+<p>• <strong>광고계정 ID(숫자)</strong></p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-meta">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Meta</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">Meta 자산을 연결하기 전에 비즈니스 관리자 하위 광고계정 연결 여부와 필수 권한, 광고계정 ID를 확인합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">비즈니스 관리자</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 비즈니스 관리자 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• 비즈니스 관리자명은 <strong>Mezzomedia (334206136772827)</strong>입니다.</p>
+<p>• 비즈니스 관리자에 광고계정이 연결되어 있어야 ADLY에서 자산 연결이 가능합니다.</p>
+<p>• 광고계정이 연결되어 있지 않다면 먼저 광고계정 연결을 진행합니다.</p>
+<p>• 광고계정이 연결되어 있다면 필수 권한을 부여한 후 자산 연결을 진행합니다.</p>
+
+</div>
+
+</section>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">필수 권한</h2>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">광고계정 권한 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 권한 확인" class="w-full h-auto block" src="images/img_21_04d24f5005.png"/>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">광고계정 권한 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 권한 확인" class="w-full h-auto block" src="images/img_22_92b565c3c9.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 광고계정 권한</p>
+<p>• 대상 사용자는 <strong>디지털솔루션기획 디지털기획팀</strong>입니다.</p>
+<p>• 광고계정 권한은 <strong>전체 관리 권한</strong>을 부여해야 합니다.</p>
+<p>• 확인 경로는 <strong>비즈니스 관리자 → 설정 → 계정 → 광고계정</strong>입니다.</p>
+<p>• 부분 액세스 권한만 부여된 경우에는 ADLY를 정상적으로 사용할 수 없습니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 페이지 권한</p>
+<p>• 대상 사용자는 <strong>디지털솔루션기획 디지털기획팀</strong>입니다.</p>
+<p>• 페이지 권한은 <strong>전체 관리 권한</strong> 또는 <strong>부분 관리 권한</strong>을 부여합니다.</p>
+<p>• 확인 경로는 <strong>비즈니스 관리자 → 설정 → 계정 → 페이지</strong>입니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">광고계정 ID 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="광고계정 ID 확인" class="w-full h-auto block" src="images/img_23_6d08a19857.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 자산 연결 시 확인 정보</p>
+<p>• <strong>광고계정 ID(숫자)</strong></p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-kakao-moment">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Kakao 모먼트 / Kakao SA</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">Kakao 모먼트와 Kakao SA는 멤버 초대 방식이 동일하며, 접속하는 관리자센터만 다릅니다.</p>
+</div>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">수집 계정</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• CJ메조미디어 수집 계정 하위 광고계정만 ADLY 사용이 가능합니다.</p>
+<p>• 멤버 초대할 아이디는 <strong>mz.targetpick@kakao.com</strong>입니다.</p>
+<p>• 권한은 <strong>멤버</strong>로 부여합니다.</p>
+<p>• 위 계정에 멤버 초대 수락을 요청한 후 계정 연결 및 관리 권한 요청을 진행합니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">Kakao 모먼트 멤버 초대</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="멤버 초대" class="w-full h-auto block" src="images/img_24_8002cc27e4.png"/>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">Kakao SA 멤버 초대</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="멤버 초대" class="w-full h-auto block" src="images/img_25_570a5eafcf.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 멤버 초대 경로 및 자산 연결 시 확인 정보</p>
+<p>• <strong>Kakao 모먼트:</strong> 카카오 비즈니스 계정 로그인 → 모먼트 관리자센터 접속 → 설정 → 광고계정 관리 → 멤버관리 탭 → +초대 클릭</p>
+<p>• <strong>Kakao SA:</strong> 카카오 비즈니스 계정 로그인 → 키워드광고 관리자센터 접속 → 설정 → 광고계정 관리 → 멤버관리 탭 → +초대 클릭</p>
+<p>• <strong>자산고유값:</strong> 광고계정 ID(숫자)</p>
+</div>
+</section>
+</div>
+</div>
+
+
+<div class="tab-content hidden" id="tab-asset-targetpick">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Targetpick</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">Targetpick은 관리 권한을 부여할 대표 계정이 없는 매체입니다. DSS 브랜드코드와 집행 이력을 확인한 후 자산 연결을 진행합니다.</p>
+</div>
+
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">연결 기준</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p class="font-bold text-slate-900">확인 기준</p>
+<p>• Targetpick은 관리 권한을 부여할 대표 계정이 없습니다.</p>
+<p>• 렙사가 <strong>메조미디어</strong>인 광고주/브랜드만 ADLY 사용이 가능합니다.</p>
+<p>• Targetpick 집행 이력이 있는 광고주/브랜드인 경우에만 자산 연결이 가능합니다.</p>
+
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">DSS 브랜드코드 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="DSS 브랜드코드 확인" class="w-full h-auto block" src="images/img_26_cd7a25fbca.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 자산 연결 시 확인 정보</p>
+<p>• <strong>DSS 브랜드코드</strong></p>
+<p>• 자산 연결을 위해 DSS 브랜드코드를 확인합니다.</p>
+<p>• 확인 경로는 <strong>DSS → 브랜드 → 브랜드 관리 → 브랜드명 검색 → 브랜드 코드 확인</strong>입니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-smr">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">SMR</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">SMR은 관리 권한을 부여할 대표 계정이 없는 매체입니다. 집행 이력과 브랜드번호를 확인한 후 자산 연결을 진행합니다.</p>
+</div>
+<section class="space-y-4">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight">연결 기준</h2>
+<div class="text-sm text-slate-600 leading-relaxed space-y-2">
+<p>• SMR은 관리 권한을 부여할 대표 계정이 없습니다.</p>
+<p>• 렙사가 <strong>메조미디어</strong>이고 SMR 집행 이력이 있는 광고주·브랜드인 경우에만 사용할 수 있습니다.</p>
+</div>
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">SMR 브랜드번호 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="SMAP 브랜드관리에서 SMR 브랜드번호 확인" class="w-full h-auto block" src="images/img_27_66274b6883.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-solid fa-circle-info mr-1"></i> 자산 연결 시 확인 정보</p>
+<p>• <strong>브랜드번호</strong></p>
+<p>• 자산 연결을 위해 SMR 브랜드번호를 확인해 주세요.</p>
+<p>• 확인 경로는 <strong>SMAP → 고객사 → 브랜드관리 → 브랜드명 검색 → 브랜드번호 확인</strong>입니다.</p>
+<p>• <a class="text-brand-indigo font-semibold hover:underline" href="https://n-smap.smrreport.com/customer/brand" target="_blank" rel="noopener noreferrer">SMAP 브랜드관리 바로가기 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a></p>
+</div>
+</section>
+</div>
+</div>
+
+<div class="tab-content hidden" id="tab-asset-flow">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">자산 연결 요청</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">운영·인사이트 그룹을 이용하기 위해 매체 광고계정을 ADLY 브랜드와 연결하는 절차입니다. 브랜드는 메조미디어 DSS에 등록된 브랜드에서 검색합니다. 자산은 브랜드 단위로 연결되며, 요청 제출 후 운영자 확인을 거쳐 반영됩니다.</p>
+</div>
+
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">자산 연결 요청 시작</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="1. 자산 연결 요청 시작" class="w-full h-auto block" src="images/img_28_dc6f5b8612.jpg"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 자산 연결 요청 시작 안내</p>
+<p>자산정보 &gt; 자산현황 탭에서 [자산 연결 요청] 버튼을 클릭하면 자산 연결 요청 모달이 열립니다. 먼저 연결할 브랜드를 검색합니다.</p>
+<p>• 브랜드명을 입력한 후 검색합니다.</p>
+<p>• 브랜드가 없는 경우 [신규 브랜드 등록 요청]을 먼저 진행합니다.</p>
+<p>• 브랜드 선택 전에는 매체 선택 영역이 비활성화됩니다.</p>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">2</span>
+<span class="font-bold text-slate-900">브랜드·매체 선택 후 자산고유값 조회</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="브랜드·매체 선택 후 자산고유값 조회" class="w-full h-auto block" src="images/img_29_53e1ffadd3.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 브랜드·매체 선택 후 자산고유값 조회 안내</p>
+<p>브랜드를 선택하면 매체를 선택할 수 있습니다. 매체 선택 후 자산고유값을 입력하고 Enter로 조회합니다.</p>
+<p>• NAVER SA, NAVER 성과형 DA, Kakao SA, Kakao 모먼트, Google Ads, Meta, Targetpick은 자산고유값을 입력한 뒤 Enter로 조회합니다.</p>
+<p>• 자산 요청이 가능한 경우 “자산 요청이 가능합니다.” 메시지가 표시됩니다.</p>
+<p>• 조회 성공 시 자산명이 자동 입력되며, 자산명은 직접 수정할 수 없습니다.</p>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">3</span>
+<span class="font-bold text-slate-900">등록 불가 메시지 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="등록 불가 메시지 확인" class="w-full h-auto block" src="images/img_30_d2254aa5c9.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 등록 불가 안내</p>
+<p>• <strong>이미 요청 중인 자산:</strong> 동일한 자산이 자산요청내역에서 <strong>요청중</strong> 또는 <strong>처리중</strong> 상태인 경우에는 다시 요청할 수 없습니다.</p>
+<p>• <strong>이미 등록된 자산:</strong> 해당 자산이 이미 자산현황에 등록되어 있는 경우에는 추가 등록이 불가능합니다.</p>
+<p>• <strong>다른 브랜드에 연결된 자산:</strong> 해당 자산이 다른 브랜드에 이미 연결되어 있는 경우에는 요청할 수 없습니다. 운영자에게 연결 상태를 확인한 후 진행합니다.</p>
+<p>• <strong>조회되지 않는 자산:</strong> 입력한 자산이 조회되지 않는 경우에는 자산 연결을 진행할 수 없습니다. 자산고유값과 관리 권한을 다시 확인한 후 요청합니다.</p>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 자산 연결 요청 안내</p>
+<p>• 조회가 완료된 자산만 자산 연결 요청을 진행할 수 있습니다.</p>
+<p>• 조회된 자산을 확인한 후 <strong>[자산 연결 요청]</strong> 버튼을 선택하여 신청합니다.</p>
+<p>• 요청 완료 후 운영자의 승인 절차를 거쳐 자산이 연결됩니다.</p>
+<p>• 승인 완료 후 <strong>자산정보 &gt; 자산현황</strong> 메뉴에서 연결 결과를 확인할 수 있습니다.</p>
+</div>
+
+
+
+<div class=\"p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed\"></div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">4</span>
+<span class="font-bold text-slate-900">요청 제출 후 자산요청내역 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="요청 제출 후 자산요청내역 확인" class="w-full h-auto block" src="images/img_31_c3ac61ce04.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 요청 제출 후 자산요청내역 확인 안내</p>
+<p>요청을 제출하면 자산요청내역 탭에서 요청 상태를 확인할 수 있습니다. 운영자 처리 전까지 상태는 요청중으로 표시됩니다.</p>
+<p>• 자산요청내역에서는 브랜드명, 브랜드 코드, 매체, 자산명, 자산고유값, 상태, 요청일을 확인할 수 있습니다.</p>
+<p>• 요청 상태는 요청중 / 완료 / 반려로 표시됩니다.</p>
+<p>• 검색창에서는 브랜드명, 매체, 브랜드 코드, 자산고유값으로 검색할 수 있습니다.</p>
+</div>
+</section>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">5</span>
+<span class="font-bold text-slate-900">승인 완료 후 자산현황 확인</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="승인 완료 후 자산현황 확인" class="w-full h-auto block" src="images/img_32_77c868bb5b.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 승인 완료 후 자산현황 확인 안내</p>
+<p>운영자 승인 후에는 자산현황 탭에서 연결된 자산을 확인할 수 있습니다.</p>
+<p>• 자산현황에서는 브랜드명, 브랜드 코드, 매체, 자산명, 사용여부, 자산고유값을 확인할 수 있습니다.</p>
+<p>• 자산현황은 사용자 상태가 ‘승인’일 때 확인할 수 있습니다.</p>
+<p>• 자산 연결 요청한 브랜드에서 해당 브랜드에 이미 연결된 자산이 있다면 함께 자산현황에 표시됩니다.</p>
+</div>
+</section>
+</div>
+</div>
+<!-- ================= [TAB: 신규 브랜드 등록 요청] ================= -->
+<div class="tab-content hidden" id="tab-asset-newbrand">
+<div class="space-y-8">
+<div class="space-y-3">
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">신규 브랜드 등록 요청</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">자산 연결 도중 연결할 브랜드가 조회되지 않는 경우 신규 브랜드 등록 요청을 진행합니다.</p>
+</div>
+<section class="space-y-4">
+<div class="flex items-center gap-2 mb-5 mt-10">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-indigo text-white text-xs font-bold">1</span>
+<span class="font-bold text-slate-900">신규 브랜드 등록 요청</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white">
+<img alt="신규 브랜드 등록 요청" class="w-full h-auto block" src="images/img_33_0bed879862.png"/>
+</div>
+<div class="p-5 bg-indigo-50/50 rounded-xl border-l-4 border-brand-indigo text-sm text-slate-700 space-y-2 leading-relaxed">
+<p class="font-bold text-brand-indigo"><i class="fa-regular fa-lightbulb mr-1"></i> 신규 브랜드 등록 요청 안내</p>
+<p>• 자산 연결 도중 연결할 브랜드가 조회되지 않는 경우 팝업 상단의 <strong>[신규 브랜드 등록 요청]</strong> 버튼을 클릭하여 신청합니다.</p>
+<p>• 신청한 브랜드는 <strong>메조미디어 DSS</strong>에 등록됩니다.</p>
+<p>• 브랜드 등록이 완료되면 다시 <strong>자산 연결 요청</strong>을 진행합니다.</p>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ================= [TAB: 운영·인사이트 가이드 (광고주/대행사용)] ================= -->
+<!-- 제공 솔루션 화면에서만 진입하는 숨김 하위 페이지이며 좌측 SNB에는 노출하지 않습니다. -->
+<div class="tab-content hidden" id="tab-guide-advertiser-agency">
+<div class="space-y-10">
+<div class="space-y-4">
+<button class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-brand-indigo transition-colors" onclick="switchTab('tab-intro-solutions')" type="button">
+<i class="fa-solid fa-arrow-left text-xs"></i> 제공 솔루션으로 돌아가기
+</button>
+<div class="space-y-3">
+<span class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-brand-indigo">광고주/대행사용</span>
+<h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">운영·인사이트 솔루션 가이드</h1>
+<p class="text-slate-600 leading-relaxed text-[15px]">ADLY의 운영·인사이트 솔루션과 광고주·대행사 사용자의 이용 방법을 안내합니다.</p>
+</div>
+</div>
+
+
+<section class="space-y-6 scroll-mt-8" id="agency-guide-overview">
+<div class="space-y-2">
+<p class="text-xs font-bold uppercase tracking-wider text-brand-indigo">1. 개요 및 이용 권한</p>
+<h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">제공 솔루션</h2>
+<p class="text-sm leading-relaxed text-slate-600">운영·인사이트 그룹은 광고 운영과 성과 분석에 필요한 5개 솔루션을 제공합니다.</p>
+</div>
+<h3 class="text-xl font-bold text-slate-900 pt-2">운영 · 인사이트 솔루션 종류</h3>
+<div class="overflow-hidden rounded-xl border border-slate-100">
+<table class="min-w-full divide-y divide-slate-100 text-sm">
+<thead class="bg-slate-50"><tr><th class="w-1/4 px-5 py-3 text-left font-bold text-slate-700">솔루션</th><th class="px-5 py-3 text-left font-bold text-slate-700">설명</th></tr></thead>
+<tbody class="divide-y divide-slate-100 text-[13px] text-slate-600">
+<tr><td class="px-5 py-4 font-bold text-slate-800">Opera(오페라)</td><td class="px-5 py-4 leading-relaxed">DA·SA 주요 매체를 한곳에서 통합 운영해 효율과 안정성을 높이는 솔루션입니다.</td></tr>
+<tr><td class="px-5 py-4 font-bold text-slate-800">Intella(인텔라)</td><td class="px-5 py-4 leading-relaxed">광고 데이터를 통합해 누구나 쉽고 편리하게 성과를 분석·공유할 수 있는 통합 BI 솔루션입니다.</td></tr>
+<tr><td class="px-5 py-4 font-bold text-slate-800">BidOpt(비드옵트)</td><td class="px-5 py-4 leading-relaxed">데이터 기반 키워드 입찰가 제안으로 성과와 예산 활용을 극대화하는 솔루션입니다.</td></tr>
+<tr><td class="px-5 py-4 font-bold text-slate-800">BidAuto(비드오토)</td><td class="px-5 py-4 leading-relaxed">키워드의 목표 순위를 안정적으로 유지하는 정교한 자동 입찰 엔진입니다.</td></tr>
+<tr><td class="px-5 py-4 font-bold text-slate-800">ifAd(이프에드)</td><td class="px-5 py-4 leading-relaxed">IFTTT 기반으로 광고 성과와 외부 변수의 변화를 감지해 광고 운영을 자동 최적화하는 솔루션입니다.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="space-y-3 pt-2">
+<h3 class="text-xl font-bold text-slate-900">사용자 유형별 솔루션 이용 권한</h3>
+<p class="text-sm leading-relaxed text-slate-600">광고주·대행사 사용자는 조회(Read) 전용 권한으로 솔루션을 이용할 수 있습니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100">
+<table class="min-w-full divide-y divide-slate-100 text-center text-sm">
+<thead class="bg-slate-50"><tr><th class="px-5 py-3 text-left font-bold text-slate-700">사용자 유형</th><th class="px-5 py-3 font-bold text-slate-700">조회</th><th class="px-5 py-3 font-bold text-slate-700">신규 생성</th><th class="px-5 py-3 font-bold text-slate-700">수정</th><th class="px-5 py-3 font-bold text-slate-700">삭제</th><th class="px-5 py-3 font-bold text-slate-700">다운로드</th></tr></thead>
+<tbody class="divide-y divide-slate-100 text-[13px] text-slate-600">
+<tr><td class="px-5 py-4 text-left font-bold text-slate-800">임직원</td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td></tr>
+<tr><td class="px-5 py-4 text-left font-bold text-slate-800">광고주/대행사</td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td><td class="px-5 py-4 text-slate-300">—</td><td class="px-5 py-4 text-slate-300">—</td><td class="px-5 py-4 text-slate-300">—</td><td class="px-5 py-4 font-bold text-brand-indigo"><i class="fa-solid fa-check"></i></td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+
+<div class="space-y-3 pt-2">
+<h3 class="text-xl font-bold text-slate-900">제공 매체</h3>
+<p class="text-sm leading-relaxed text-slate-600">2026년 7월 기준, NAVER SA, kakao SA, NAVER 성과형 DA, NAVER 보장형 DA, Google Ads, Meta, kakao 모먼트, TargetPick, SMR의 광고 성과 데이터를 제공하고 있습니다.</p>
+<p class="text-sm leading-relaxed text-slate-600">2026년 하반기에는 Tving, TikTok, 당근, Netflix, SOOP 등 주요 버티컬 광고 매체를 대상으로 지원 범위를 순차적으로 확대하여, 통합 분석 환경을 지속적으로 강화할 예정입니다.</p>
+</div>
+</section>
+
+<section class="space-y-6 border-t border-slate-100 pt-10 scroll-mt-8" id="agency-guide-about">
+<div class="space-y-2">
+<p class="text-xs font-bold uppercase tracking-wider text-brand-indigo">2. 주요 솔루션 안내</p>
+<h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">솔루션별 특징과 구조</h2>
+</div>
+<div class="flex flex-wrap gap-2 border-b border-slate-100 pb-3" role="tablist" aria-label="주요 솔루션 안내 탭">
+<button class="solution-tab-btn-about px-4 py-2 rounded-lg text-sm font-bold bg-brand-indigo text-white transition-all" data-solution-tab="about-opera" type="button">Opera</button>
+<button class="solution-tab-btn-about px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="about-intella" type="button">Intella</button>
+<button class="solution-tab-btn-about px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="about-bidopt" type="button">BidOpt</button>
+<button class="solution-tab-btn-about px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="about-bidauto" type="button">BidAuto</button>
+<button class="solution-tab-btn-about px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="about-ifad" type="button">ifAd</button>
+</div>
+
+<div class="solution-tab-panel-about" id="about-opera">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
+<h3 class="text-lg font-extrabold text-slate-900">Opera(오페라)</h3>
+<div class="text-sm leading-relaxed text-slate-600 space-y-3">
+<p><strong class="text-slate-800">서비스 소개</strong><br/>SA·DA 주요 매체를 한 곳에서 통합 운영하고 <strong>성과를 조회</strong>하여 광고 운영의 효율과 안정성을 극대화하는 <strong>멀티 매체 운영 허브</strong> 솔루션입니다.</p>
+<p><strong class="text-slate-800">서비스 구조</strong><br/>네이버, 카카오, 구글, 메타 등 주요 매체와 연동하여 조회, 운영, 분석이 선순환되는 통합 관리 체계로 구축되어 있습니다.</p>
+<p><strong class="text-slate-800">서비스 특징</strong><br/>플랫폼 간 이동 없는 일원화된 성과 분석, 효율화된 운영과 자동화 기능을 통해 휴먼 에러를 최소화하고 전략적 업무 효율성을 극대화합니다.</p>
+</div>
+</div>
+</div>
+
+<div class="solution-tab-panel-about hidden" id="about-intella">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
+<h3 class="text-lg font-extrabold text-slate-900">Intella(인텔라)</h3>
+<div class="text-sm leading-relaxed text-slate-600 space-y-3">
+<p><strong class="text-slate-800">서비스 소개</strong><br/>파편화된 광고 데이터를 하나로 통합하여 누구나 쉽고 편리하게 성과를 분석하고 공유할 수 있는 BI(Business Intelligence) 솔루션입니다.</p>
+<p><strong class="text-slate-800">서비스 구조</strong><br/>매체별 데이터를 표준화하는 데이터 맵핑 모듈과 위젯 기반의 시각화 도구인 인사이트 대시보드로 이루어져 있습니다.</p>
+<p><strong class="text-slate-800">서비스 특징</strong><br/><strong>위젯 기반의 직관적인 UI</strong>를 통해 러닝커브 없이 데이터를 탐색할 수 있으며, 실시간 리포트 공유 기능을 통해 협업 효율을 높입니다.</p>
+</div>
+</div>
+</div>
+
+<div class="solution-tab-panel-about hidden" id="about-bidopt">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
+<h3 class="text-lg font-extrabold text-slate-900">BidOpt(비드옵트)</h3>
+<div class="text-sm leading-relaxed text-slate-600 space-y-3">
+<p><strong class="text-slate-800">서비스 소개</strong><br/>데이터 기반의 성과 예측을 통해 목표 달성에 최적화된 키워드 순위와 입찰가를 제안하는 입찰 전략 최적화 솔루션입니다.</p>
+<p><strong class="text-slate-800">서비스 구조</strong><br/>KPI 입력과 키워드 선별 단계를 거쳐 <strong>특허받은 알고리즘(BidOpt 알고리즘)</strong>을 통해 최적의 입찰가를 산출하는 프로세스를 갖추고 있습니다.</p>
+<p><strong class="text-slate-800">서비스 특징</strong><br/>경험에 의존하던 방식에서 벗어나 데이터 기반의 일관된 전략 실행을 지원하며, 예산 낭비를 차단해 목표 효율을 달성합니다.<br/><strong>네이버 SA 파워링크 키워드</strong>를 대상으로 제공됩니다.</p>
+</div>
+</div>
+</div>
+
+<div class="solution-tab-panel-about hidden" id="about-bidauto">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
+<h3 class="text-lg font-extrabold text-slate-900">BidAuto(비드오토)</h3>
+<div class="text-sm leading-relaxed text-slate-600 space-y-3">
+<p><strong class="text-slate-800">서비스 소개</strong><br/>키워드의 목표 순위를 실시간으로 감지하여 안정적으로 노출을 유지해 주는 정교한 스마트 자동 입찰 솔루션입니다.</p>
+<p><strong class="text-slate-800">서비스 구조</strong><br/>사용자가 설정한 목표 순위와 노출 위치 등에 맞춰 <strong>실시간 자동 입찰 엔진</strong>이 주기에 맞춰 입찰가를 조정하는 구조입니다.</p>
+<p><strong class="text-slate-800">서비스 특징</strong><br/>반복적인 수동 입찰 업무를 시스템이 대신 수행하여 운영 효율을 높이고, 요일/시간별 스케줄 설정으로 예산 운영의 안정성을 확보합니다.</p>
+</div>
+</div>
+</div>
+
+<div class="solution-tab-panel-about hidden" id="about-ifad">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-4">
+<h3 class="text-lg font-extrabold text-slate-900">ifAd(이프에드)</h3>
+<div class="text-sm leading-relaxed text-slate-600 space-y-3">
+<p><strong class="text-slate-800">서비스 소개</strong><br/>IFTTT(If This Then That) 개념을 차용하여 <strong>특정 조건 충족</strong> 시 지정된 광고 <strong>운영 액션</strong>을 자동 수행하는 운영 자동화 솔루션입니다.</p>
+<p><strong class="text-slate-800">서비스 구조</strong><br/>외부 변수나 성과 변화를 감지하는 <strong>트리거</strong>와 그에 따라 실행되는 <strong>액션</strong>의 조합으로 자동화 규칙(<strong>오더</strong>)이 구성됩니다.</p>
+<p><strong class="text-slate-800">서비스 특징</strong><br/><strong>날씨나 성과 지표</strong> 같은 데이터 변동에 즉각 반응하는 조건 제어 체계를 통해 광고 운영의 타이밍과 대응력을 높입니다.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="space-y-6 border-t border-slate-100 pt-10 scroll-mt-8" id="agency-guide-use">
+<div class="space-y-2">
+<p class="text-xs font-bold uppercase tracking-wider text-brand-indigo">3. 솔루션 이용 방법</p>
+<h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">솔루션 접속 및 조회 방법</h2>
+<p class="text-sm leading-relaxed text-slate-600">광고주/대행사에게 제공되는 조회(Read) 전용 권한 가이드입니다.</p>
+</div>
+<div class="flex flex-wrap gap-2 border-b border-slate-100 pb-3" role="tablist" aria-label="솔루션 이용 방법 탭">
+<button class="solution-tab-btn-use px-4 py-2 rounded-lg text-sm font-bold bg-brand-indigo text-white transition-all" data-solution-tab="use-opera" type="button">Opera</button>
+<button class="solution-tab-btn-use px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="use-intella" type="button">Intella</button>
+<button class="solution-tab-btn-use px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="use-bidopt" type="button">BidOpt</button>
+<button class="solution-tab-btn-use px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="use-bidauto" type="button">BidAuto</button>
+<button class="solution-tab-btn-use px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:bg-slate-100 transition-all" data-solution-tab="use-ifad" type="button">ifAd</button>
+</div>
+
+<div class="solution-tab-panel-use" id="use-opera">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-5 text-sm leading-relaxed text-slate-600">
+<h3 class="text-lg font-extrabold text-slate-900">Opera(오페라)</h3>
+<p><strong class="text-brand-indigo">접속 경로</strong><br/>ADLY main.adly.co.kr 로그인 후 솔루션 이동 'Opera' 버튼을 선택하여 opera.adly.co.kr 에 접속합니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="main 솔루션 이동 버튼" class="w-full h-auto block" src="images/img_34_a5fbff72f8.png"/></div>
+<ol class="space-y-8">
+<li><strong class="mr-2 text-brand-indigo">1)</strong>권한이 부여된 브랜드를 선택하고 조회하고자 하는 매체 '자산'을 선택합니다. 브랜드를 선택하고 나면 ADLY에서 제공하는 매체의 아이콘이 나오고, 조회하고자 하는 자산의 매체와 자산을 차례로 선택합니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 브랜드와 자산 선택" class="w-full h-auto block" src="images/img_35_04d2fb93ba.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">2)</strong>브랜드를 선택하면 해당 브랜드에 연결된 자산의 성과 현황을 통합으로 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 통합 성과 현황" class="w-full h-auto block" src="images/img_36_967947a63b.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">3)</strong>매체 '자산'을 선택하면 트리모드/전체모드 로 성과를 조회하는 Opera 목록이 나옵니다.
+<div class="grid grid-cols-1 gap-3 md:grid-cols-2 mt-3"><div class="rounded-xl bg-slate-50 p-4"><strong class="text-slate-800">전체모드</strong><p class="mt-1 text-xs text-slate-500">해당 매체의 광고 레벨에 있는 모든 대상의 성과를 일괄 조회</p></div><div class="rounded-xl bg-slate-50 p-4"><strong class="text-slate-800">트리모드</strong><p class="mt-1 text-xs text-slate-500">광고 레벨 뎁스별로 성과를 조회하고 각 광고 레벨의 성과 합산을 조회</p></div></div>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 트리/전체 모드" class="w-full h-auto block" src="images/img_37_ff83b1ee07.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">4)</strong>조회기간을 설정하여 성과를 조회하거나 필터 및 정렬 기능을 사용해 원하는 데이터만 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 기간 설정과 필터 정렬" class="w-full h-auto block" src="images/img_38_79e2846923.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">5)</strong>표와 오른쪽 AiQ, Explorer 버튼을 누르면 AI 기반 성과 분석과 일자별 성과 조회가 가능합니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 AiQ와 Explorer" class="w-full h-auto block" src="images/img_39_f5ffc0c872.png"/></div>
+</li>
+</ol>
+</div>
+</div>
+
+<div class="solution-tab-panel-use hidden" id="use-intella">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-5 text-sm leading-relaxed text-slate-600">
+<h3 class="text-lg font-extrabold text-slate-900">Intella(인텔라)</h3>
+<p><strong class="text-brand-indigo">접속 경로</strong><br/>ADLY main.adly.co.kr 로그인 후 솔루션 이동 'Intella' 버튼을 선택하거나, 공유받은 대시보드 URL을 통해 접속합니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="main 솔루션 이동 버튼" class="w-full h-auto block" src="images/img_34_a5fbff72f8.png"/></div>
+<p>대시보드 조회 - 한눈에 비교하기</p>
+<div class="overflow-hidden rounded-xl border border-slate-100"><table class="min-w-full divide-y divide-slate-100 text-[13px]"><thead class="bg-slate-50"><tr><th class="px-4 py-3 text-left font-bold text-slate-700"></th><th class="px-4 py-3 text-left font-bold text-slate-700">Intella 대시보드 목록 진입</th><th class="px-4 py-3 text-left font-bold text-slate-700">URL 진입</th></tr></thead><tbody class="divide-y divide-slate-100"><tr><td class="px-4 py-3 font-bold text-slate-800">진입 경로</td><td class="px-4 py-3">main.adly.co.kr &gt; [Intella]</td><td class="px-4 py-3">공유받은 URL로 진입</td></tr><tr><td class="px-4 py-3 font-bold text-slate-800">접근 기기</td><td class="px-4 py-3">PC</td><td class="px-4 py-3">PC, MO</td></tr><tr><td class="px-4 py-3 font-bold text-slate-800">접근 방식</td><td class="px-4 py-3">로그인 O</td><td class="px-4 py-3">로그인 X, 대시보드 비밀번호로 접근</td></tr><tr><td class="px-4 py-3 font-bold text-slate-800">조회 범위</td><td class="px-4 py-3">대시보드 목록에서 공유받은 대시보드 전체 조회</td><td class="px-4 py-3">특정 대시보드만 조회</td></tr></tbody></table></div>
+<ol class="space-y-8">
+<li><strong class="mr-2 text-brand-indigo">1)</strong>main.adly.co.kr &gt; [Intella]로 접속<br/><span class="text-xs text-slate-500">*adly 서비스 로그인 후 [인사이트 대시보드 &gt; 나의 대시보드] 메뉴를 통해 공유받은 대시보드 목록 전체를 조회합니다.</span><br/>연결된 브랜드의 대시보드 목록을 확인하고, 대시보드 카드를 클릭하여 상세 페이지로 이동합니다. (검색 및 필터 기능 제공)
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="Intella 대시보드 목록" class="w-full h-auto block" src="images/img_40_668bbef3b2.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">2)</strong>공유 URL로 접속 시<br/><span class="text-xs text-slate-500">*담당자로부터 전달받은 전용 URL과 비밀번호를 통해 adly 로그인 없이 즉시 리포트에 접속하는 방식입니다.</span><br/>공유 받은 URL로 접속할 경우, 접근 패스워드를 입력하여 대시보드에 접속합니다. (패스워드 분실 시 영업 담당자에게 문의)
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="Intella URL 접속" class="w-full h-auto block" src="images/img_41_bdaaa9a6e7.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">3)</strong>조회기간을 설정하여 성과를 조회하거나, 대시보드나 각 위젯을 다운로드하여 저장할 수 있습니다.
+<div class="rounded-xl bg-slate-50 p-4 text-xs text-slate-600 mt-2"><p>① 대시보드 다운로드 : 대시보드 전체를 이미지(png)로 저장</p><p>② 위젯 다운로드 : 차트 형식의 위젯은 이미지(png), 표 형식의 위젯은 이미지(png) 혹은 데이터(csv)로 저장</p></div>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="Intella 대시보드 상세 웹게시" class="w-full h-auto block" src="images/img_42_89b765b552.png"/></div>
+</li>
+</ol>
+</div>
+</div>
+
+<div class="solution-tab-panel-use hidden" id="use-bidopt">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-5 text-sm leading-relaxed text-slate-600">
+<h3 class="text-lg font-extrabold text-slate-900">BidOpt(비드옵트)</h3>
+<p>BidOpt(비드옵트)는 네이버 SA 파워링크 키워드를 대상으로 제공됩니다.</p>
+<p><strong class="text-brand-indigo">접속 경로</strong><br/>ADLY main.adly.co.kr 로그인 후 솔루션 이동 'BidOpt' 버튼을 선택하여 opera.adly.co.kr 에 접속합니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="main 솔루션 이동 버튼" class="w-full h-auto block" src="images/img_34_a5fbff72f8.png"/></div>
+<ol class="space-y-8">
+<li><strong class="mr-2 text-brand-indigo">1)</strong>Opera 와 동일하게 권한이 부여된 브랜드를 선택하고 조회하고자 하는 네이버 SA 매체 '자산'을 선택합니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 브랜드와 자산 선택" class="w-full h-auto block" src="images/img_35_04d2fb93ba.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">2)</strong>네이버 SA 매체 '자산'을 선택하면 BidOpt(비드옵트) 메뉴가 노출되고 선택하면 담당AE가 요청한 작업 목록을 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="BidOpt 메뉴 위치" class="w-full h-auto block" src="images/img_43_c91da226bb.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">3)</strong>작업 목록에서 특정 작업의 '최적화 결과' 를 누르면 알고리즘이 키워드별 성과를 식별하여 키워드의 최적 순위와 입찰가를 제안한 목록을 볼 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="BidOpt 목록과 최적화 결과" class="w-full h-auto block" src="images/img_44_9e0627437f.png"/></div>
+</li>
+</ol>
+</div>
+</div>
+
+<div class="solution-tab-panel-use hidden" id="use-bidauto">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-5 text-sm leading-relaxed text-slate-600">
+<h3 class="text-lg font-extrabold text-slate-900">BidAuto(비드오토)</h3>
+<p>BidOpt(비드옵트)는 네이버 SA 파워링크 키워드를 대상으로 제공됩니다.</p>
+<p><strong class="text-brand-indigo">접속 경로</strong><br/>ADLY main.adly.co.kr 로그인 후 솔루션 이동 'BidAuto' 버튼을 선택하여 opera.adly.co.kr 에 접속합니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="main 솔루션 이동 버튼" class="w-full h-auto block" src="images/img_34_a5fbff72f8.png"/></div>
+<ol class="space-y-8">
+<li><strong class="mr-2 text-brand-indigo">1)</strong>Opera 와 동일하게 권한이 부여된 브랜드를 선택하고 조회하고자 하는 네이버 SA 매체 '자산'을 선택합니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="오페라 브랜드와 자산 선택" class="w-full h-auto block" src="images/img_35_04d2fb93ba.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">2)</strong>네이버 SA 매체 '자산'을 선택하면 BidAuto(비드오토) 메뉴가 노출되고 선택하면 담당AE가 등록한 키워드 자동입찰 목록을 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="BidAuto 메뉴 위치" class="w-full h-auto block" src="images/img_45_ba85c30d3b.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">3)</strong>자동입찰 키워드 목록에서 목표 순위와 최대입찰가/최소입찰가, 입찰 주기 설정을 확인할 수 있고 목표순위 도달/이탈 시 보정된 입찰 내역을 일자별로 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="BidAuto 목록 설정과 이력" class="w-full h-auto block" src="images/img_46_07189ab4bb.png"/></div>
+</li>
+</ol>
+</div>
+</div>
+
+<div class="solution-tab-panel-use hidden" id="use-ifad">
+<div class="rounded-xl border border-slate-100 bg-white p-6 shadow-sm space-y-5 text-sm leading-relaxed text-slate-600">
+<h3 class="text-lg font-extrabold text-slate-900">ifAd(이프애드)</h3>
+<p>조건(트리거) 설정은 Opera 전 매체, 액션은 SA매체 (네이버 파워링크/쇼핑검색, 카카오 SA) 에 설정할 수 있으며 메일 전송도 가능합니다.</p>
+<p><strong class="text-brand-indigo">접속 경로</strong><br/>ADLY main.adly.co.kr 로그인 후 솔루션 이동 'ifAd' 버튼을 선택하여 opera.adly.co.kr/popup/nalo 에 접속합니다.</p>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="main 솔루션 이동 버튼" class="w-full h-auto block" src="images/img_34_a5fbff72f8.png"/></div>
+<ol class="space-y-8">
+<li><strong class="mr-2 text-brand-indigo">1)</strong>ifAd로 이동하면 권한이 부여된 브랜드를 선택하여 자동화 규칙 '오더' 목록으로 이동합니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="ifAd 브랜드 선택" class="w-full h-auto block" src="images/img_47_d1b4d7d4ce.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">2)</strong>담당AE가 등록한 자동화 규칙 '오더'를 선택하면 상세 페이지로 이동하고, 어떤 조건(트리거)에 부합하면 어떤 실행(액션)을 할 지 설정한 내용을 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="ifAd 오더 목록" class="w-full h-auto block" src="images/img_48_f29ed42fa1.png"/></div>
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="ifAd 오더 상세" class="w-full h-auto block" src="images/img_49_aed3f45881.png"/></div>
+</li>
+<li><strong class="mr-2 text-brand-indigo">3)</strong>스케줄 일자가 도래하여 오더 검증이 진행되면 오더 이력 메뉴에서 트리거 충족 여부와 액션 결과에 대한 상세 내용을 확인할 수 있습니다.
+<div class="overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-white my-6"><img alt="ifAd 오더 이력" class="w-full h-auto block" src="images/img_50_8a1a683658.png"/></div>
+</li>
+</ol>
+</div>
+</div>
+</section>
+
+<div class="border-t border-slate-100 pt-6">
+<button class="inline-flex items-center gap-2 text-sm font-semibold text-brand-indigo hover:text-indigo-800" onclick="document.querySelector('main').scrollTo({top:0, behavior:'smooth'})" type="button"><i class="fa-solid fa-arrow-up text-xs"></i> 페이지 상단으로 이동</button>
+</div>
+</div>
+</div>
+
+<!-- ================= [TAB: 자주 묻는 질문] ================= -->
+<div class="tab-content hidden" id="tab-faq">
+<div class="space-y-8"><div class="space-y-3"><h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">자주 묻는 질문</h1><p class="text-slate-600 leading-relaxed text-[15px]">ADLY 이용 중 자주 발생하는 질문과 확인 사항입니다.</p></div><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">로그인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>회원가입은 따로 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>아니요. ADLY는 별도의 회원가입 절차 없이 Google 로그인 시 계정이 생성됩니다.</p><p>최초 로그인 후 이용설정을 완료하면 서비스를 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Google 계정이 여러 개인데 ADLY 계정은 어떻게 생성되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>ADLY는 Google 로그인 기반으로 계정이 생성됩니다.</p><p>Google 계정마다 각각 별도의 ADLY 계정이 생성됩니다.</p><p>예를 들어 Google 계정 A로 로그인하면 ADLY 계정 A가 생성되고, Google 계정 B로 로그인하면 ADLY 계정 B가 생성됩니다.</p><p>서비스 이용 시에는 기존에 이용하던 동일한 Google 계정으로 로그인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인 후 일정 시간 동안 사용하지 않으면 어떻게 되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>보안을 위해 30분 동안 이용 활동이 없으면 자동으로 로그아웃됩니다.</p><p>자동 로그아웃된 경우 다시 Google 로그인을 진행하면 서비스를 계속 이용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>로그인은 되는데 솔루션을 사용할 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 이용설정을 완료했는지 확인합니다.</p><p>• 운영자 승인이 완료되었는지 확인합니다.</p><p>• 승인 완료 후 ADLY 메인 화면에서 솔루션을 선택하여 이용합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">이용설정</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 꼭 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>네. 이용설정을 완료해야 ADLY 솔루션을 사용할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정을 수정하면 바로 반영되나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>임직원 정보는 저장 즉시 반영됩니다.</p><p>광고주와 대행사 정보는 운영자 승인 후 반영됩니다.</p><p>승인 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이용설정 수정 후 솔루션이 바로 반영되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>솔루션 정보는 반영까지 최대 15분 정도 소요될 수 있습니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">임직원 인증</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>사내 이메일 인증이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>다음 사항을 확인합니다.</p><p>• 재직 중인 임직원인지 확인합니다.</p><p>• MTS에 등록된 사내 이메일인지 확인합니다.</p><p>• @cj.net 형식의 이메일인지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>인증번호 메일이 오지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>스팸함을 확인하거나 인증번호를 다시 발송합니다.</p><p>지속적으로 수신되지 않는 경우 관리자에게 문의합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">광고주</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>등록하려는 광고주가 검색되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>검색 결과에 없는 경우 <strong>[신규 광고주 등록 요청]</strong>을 통해 신청합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>광고주를 등록했는데 바로 데이터를 볼 수 없습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>광고주 등록은 해당 광고주에 대한 관리 권한을 설정하는 절차입니다.</p><p>광고 집행 데이터 조회를 위해서는 별도의 자산 연결이 필요합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">자산 연결</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결은 언제 해야 하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영·인사이트 그룹 솔루션을 사용하는 경우 자산 연결이 필요합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결 대상 브랜드가 조회되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>신규 브랜드 등록 요청을 진행합니다.</p><p>브랜드가 DSS에 등록된 이후 자산 연결을 진행할 수 있습니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>자산 연결이 되지 않습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>관리 권한이 부여되어 있는지 확인합니다.</p><p>광고계정이 대표 계정 또는 수집 계정에 연결되어 있는지 확인합니다.</p><p>필요한 광고계정 ID 또는 자산고유값을 정확히 입력했는지 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>이미 연결되어 있다고 나옵니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>해당 자산이 다른 브랜드에 이미 연결된 경우입니다.</p><p>운영자에게 문의하여 연결 상태를 확인합니다.</p></div></details></section><section class="space-y-4"><h2 class="text-xl font-bold text-slate-900 tracking-tight">솔루션 / 승인</h2><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>Intella 대시보드가 조회되지 않아요.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>브랜드 권한이 없거나, 광고주·대행사 사용자의 경우 게시 기간이 지난 대시보드는 조회되지 않습니다.</p><p>읽기 권한 이외의 권한이 필요하면 관리자에게 문의해 주세요.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>일부 솔루션이 비활성화되어 있습니다.</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>오픈 전 솔루션이거나 현재 사용자에게 이용 권한이 없는 솔루션일 수 있습니다.</p><p>이용설정 및 승인 상태를 확인합니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인 결과는 어디서 확인하나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>승인 또는 반려 결과는 등록된 이메일로 안내됩니다.</p></div></details><details class="group rounded-xl border border-slate-100 bg-white p-5 shadow-sm"><summary class="cursor-pointer list-none font-bold text-slate-900 flex items-center justify-between gap-4"><span>승인까지 얼마나 걸리나요?</span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="mt-4 text-sm text-slate-600 leading-relaxed space-y-2"><p>운영자의 검토 후 승인됩니다.</p><p>처리 시간은 운영 일정에 따라 달라질 수 있습니다.</p></div></details></section></div></div>
+</div>
+</main>
+</div>
+
+<script>
+    let currentTabId = 'tab-home';
+
+    function closeMobileSidebar() {
+        document.getElementById('guideSidebar')?.classList.remove('mobile-open');
+        document.getElementById('sidebarOverlay')?.classList.remove('mobile-open');
+    }
+
+    function openMobileSidebar() {
+        document.getElementById('guideSidebar')?.classList.add('mobile-open');
+        document.getElementById('sidebarOverlay')?.classList.add('mobile-open');
+    }
+
+    function openAllMenuTree() {
+        document.querySelectorAll('.category-items').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.submenu-items').forEach(el => el.classList.remove('hidden'));
+        document.querySelectorAll('.category-toggle .fa-chevron-down, .submenu-toggle .fa-chevron-down').forEach(icon => {
+            icon.classList.add('rotate-180');
+        });
+    }
+
+    function initSolutionSubTabs(btnClass, panelClass) {
+        document.querySelectorAll('.' + btnClass).forEach(btn => {
+            btn.addEventListener('click', function() {
+                const target = this.getAttribute('data-solution-tab');
+                document.querySelectorAll('.' + btnClass).forEach(b => {
+                    b.classList.remove('bg-brand-indigo', 'text-white');
+                    b.classList.add('text-slate-500');
+                });
+                this.classList.add('bg-brand-indigo', 'text-white');
+                this.classList.remove('text-slate-500');
+                document.querySelectorAll('.' + panelClass).forEach(p => p.classList.add('hidden'));
+                const targetPanel = document.getElementById(target);
+                if (targetPanel) targetPanel.classList.remove('hidden');
+            });
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        initSolutionSubTabs('solution-tab-btn-about', 'solution-tab-panel-about');
+        initSolutionSubTabs('solution-tab-btn-use', 'solution-tab-panel-use');
+    });
+
+    function switchTab(tabId, options = {}) {
+        currentTabId = tabId;
+
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById(tabId)?.classList.remove('hidden');
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('bg-slate-100', 'text-slate-900', 'font-semibold');
+            item.classList.add('text-slate-500');
+        });
+
+        const activeNav = document.querySelector(`[data-target="${tabId}"]`);
+        if (activeNav) {
+            activeNav.classList.add('bg-slate-100', 'text-slate-900', 'font-semibold');
+            activeNav.classList.remove('text-slate-500');
+        }
+
+        // v2.1: 좌측 메뉴는 기본 펼침 상태를 유지합니다.
+        openAllMenuTree();
+
+        const mainContent = document.querySelector('main');
+        if (mainContent) mainContent.scrollTop = 0;
+
+        if (!options.skipHash && history.replaceState) {
+            history.replaceState(null, '', '#' + tabId);
+        }
+
+        closeMobileSidebar();
+    }
+
+    function filterMenu(keyword) {
+        const q = keyword.trim().toLowerCase();
+        const allNav = document.querySelectorAll('.nav-item');
+        const groups = document.querySelectorAll('aside .space-y-1');
+
+        if (!q) {
+            allNav.forEach(item => item.classList.remove('hidden'));
+            groups.forEach(group => group.classList.remove('hidden'));
+            openAllMenuTree();
+            return;
+        }
+
+        allNav.forEach(item => {
+            const matched = item.textContent.toLowerCase().includes(q);
+            item.classList.toggle('hidden', !matched);
+        });
+
+        openAllMenuTree();
+
+        groups.forEach(group => {
+            const hasVisible = Array.from(group.querySelectorAll('.nav-item')).some(item => !item.classList.contains('hidden'));
+            if (group.querySelector('.category-toggle')) {
+                group.classList.toggle('hidden', !hasVisible);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                if (target) switchTab(target);
+            });
+        });
+
+        document.querySelectorAll('.category-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const items = toggle.nextElementSibling;
+                const chevron = toggle.querySelector('.fa-chevron-down');
+                if (!items) return;
+                items.classList.toggle('hidden');
+                if (chevron) chevron.classList.toggle('rotate-180', !items.classList.contains('hidden'));
+            });
+        });
+
+        document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const items = toggle.nextElementSibling;
+                const chevron = toggle.querySelector('.fa-chevron-down');
+                if (!items) return;
+                items.classList.toggle('hidden');
+                if (chevron) chevron.classList.toggle('rotate-180', !items.classList.contains('hidden'));
+            });
+        });
+
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const answer = toggle.nextElementSibling;
+                const chevron = toggle.querySelector('.fa-chevron-down');
+                if (!answer) return;
+                answer.classList.toggle('hidden');
+                if (chevron) chevron.classList.toggle('rotate-180', !answer.classList.contains('hidden'));
+            });
+        });
+
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', openMobileSidebar);
+        document.getElementById('sidebarOverlay')?.addEventListener('click', closeMobileSidebar);
+        document.getElementById('menuSearchInput')?.addEventListener('input', (e) => filterMenu(e.target.value));
+
+        document.querySelectorAll('.user-type-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const selectedType = card.getAttribute('data-user-type');
+
+                document.querySelectorAll('.user-type-card').forEach(item => {
+                    const isSelected = item === card;
+                    item.setAttribute('aria-pressed', String(isSelected));
+                    item.classList.toggle('border-brand-indigo', isSelected);
+                    item.classList.toggle('bg-indigo-50', isSelected);
+                    item.classList.toggle('ring-1', isSelected);
+                    item.classList.toggle('ring-brand-indigo/20', isSelected);
+                });
+
+                document.querySelectorAll('.user-type-permission').forEach(panel => {
+                    panel.classList.toggle('hidden', panel.getAttribute('data-permission-panel') !== selectedType);
+                });
+            });
+        });
+
+        const copyBtn = document.getElementById('copyLinkBtn');
+        copyBtn?.addEventListener('click', async () => {
+            const url = location.origin + location.pathname + '#' + currentTabId;
+            try {
+                await navigator.clipboard.writeText(url);
+                copyBtn.textContent = '복사 완료';
+                setTimeout(() => copyBtn.textContent = '링크 복사', 1200);
+            } catch(e) {
+                prompt('아래 링크를 복사합니다.', url);
+            }
+        });
+
+        document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+
+        const initialTab = location.hash ? location.hash.replace('#', '') : 'tab-home';
+        openAllMenuTree();
+        switchTab(document.getElementById(initialTab) ? initialTab : 'tab-home', { skipHash: !location.hash });
+    });
+</script>
+
+<!-- Image Lightbox Modal -->
+<div id="imgLightbox" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out" onclick="this.classList.add('hidden');this.classList.remove('flex')">
+<img id="imgLightboxImg" class="max-w-[90vw] max-h-[90vh] rounded-xl shadow-2xl object-contain" src="" alt=""/>
+</div>
+<style>
+#imgLightbox.flex { display: flex; }
+.guide-img-clickable { cursor: zoom-in; transition: box-shadow 0.2s; }
+.guide-img-clickable:hover { box-shadow: 0 4px 24px rgba(111,53,241,0.15); }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[src*="운영인사이트솔루션가이드_이미지파일"]').forEach(function(img) {
+        img.classList.add('guide-img-clickable');
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var lb = document.getElementById('imgLightbox');
+            document.getElementById('imgLightboxImg').src = this.src;
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+        });
+    });
+});
+</script>
+</body>
+</html>
