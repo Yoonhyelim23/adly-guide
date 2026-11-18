@@ -348,7 +348,7 @@
 <td class="px-5 py-3 leading-relaxed align-middle" rowspan="5">
 <div class="space-y-3">
 <div>
-<a class="text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" href="https://wiki.cjenm.com/x/aY7YBg" target="_blank" rel="noopener noreferrer">운영 · 인사이트 가이드 (임직원용) ↗</a>
+<a class="text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" href="https://assets-url.adly.co.kr/cdn/adly-docs/index.html" data-env-link="adly-docs" target="_blank" rel="noopener noreferrer">운영 · 인사이트 가이드 (임직원용) ↗</a>
 </div>
 <div class="pt-3 border-t border-slate-100">
 <button class="text-left text-brand-indigo font-semibold underline underline-offset-2 hover:text-indigo-800 break-all" onclick="switchTab('tab-guide-advertiser-agency')" type="button">운영 · 인사이트 가이드 (광고주/대행사용)</button>
@@ -2102,6 +2102,29 @@
         });
 
         document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+
+        // 환경별 링크: 접속한 호스트명으로 dev / stg / prod 를 판단해 링크를 바꾼다.
+        // 판단이 안 되면 HTML에 적힌 prod 주소가 그대로 쓰인다.
+        const ENV_LINKS = {
+            'adly-docs': {
+                dev:  'https://assets-url-dev.adly.co.kr/cdn/adly-docs/index.html',
+                stg:  'https://assets-url-stg.adly.co.kr/cdn/adly-docs/index.html',
+                prod: 'https://assets-url.adly.co.kr/cdn/adly-docs/index.html'
+            }
+        };
+        const detectEnv = () => {
+            const host = location.hostname.toLowerCase();
+            if (location.protocol === 'file:' || host === '' || host === 'localhost' || host === '127.0.0.1') return 'dev';
+            const parts = host.split(/[.-]/);
+            if (parts.includes('dev')) return 'dev';
+            if (parts.includes('stg') || parts.includes('stage')) return 'stg';
+            return 'prod';
+        };
+        const currentEnv = detectEnv();
+        document.querySelectorAll('[data-env-link]').forEach(link => {
+            const url = ENV_LINKS[link.getAttribute('data-env-link')]?.[currentEnv];
+            if (url) link.href = url;
+        });
 
         const initialTab = location.hash ? location.hash.replace('#', '') : 'tab-home';
         openAllMenuTree();
